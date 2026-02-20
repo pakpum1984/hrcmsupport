@@ -1,1334 +1,1058 @@
-
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
-
-  <head>
-  <meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta name="description" content="เว็บไซต์ประชาสัมพันธ์ข่าวสารและตำแหน่งงานของแผนก HR บริษัท Cm2">
     <meta name="keywords" content="HR, ตำแหน่งงาน, รับสมัครงาน, Cm2">
     <meta name="author" content="นาย ภาคภูมิ เรือนมูล">
     <title>HR Support - ประชาสัมพันธ์</title>
-
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- js-cookie -->
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-    <!-- Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
-    <link href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js" crossorigin="anonymous"></script>
-   
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
-<!--  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">    -->
-    <!-- Favicons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="https://themewagon.github.io/jobest/v1.0.0/assets/img/illustrations/jobs.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://themewagon.github.io/jobest/v1.0.0/assets/img/illustrations/jobs.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://themewagon.github.io/jobest/v1.0.0/assets/img/illustrations/jobs.png">
-    <link rel="shortcut icon" type="image/x-icon" href="https://themewagon.github.io/jobest/v1.0.0/assets/img/illustrations/jobs.png">
-    <link rel="manifest" href="assets/img/favicons/manifest.json">
-    <meta name="msapplication-TileImage" content="https://themewagon.github.io/jobest/v1.0.0/assets/img/illustrations/jobs.png">
-    <meta name="theme-color" content="#ffffff">
-
-    <!-- ===============================================-->
-    <!--    Stylesheets-->
-    <!-- ===============================================-->
-    <link href="https://themewagon.github.io/jobest/v1.0.0/assets/css/theme.min.css" rel="stylesheet" />
+    <!-- Font Awesome 6 (ไอคอนสวยๆ) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- DataTables -->
+    <link href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css" rel="stylesheet">
     
-<!--     <link href="style.css" rel="stylesheet"> -->
-    <!-- เพิ่ม jQuery -->
-
-
-  </head>
-<style>
-  
- *{
-    font-family: "Prompt", sans-serif !important; 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://themewagon.github.io/jobest/v1.0.0/assets/img/illustrations/jobs.png">
     
-  }
-  
+    <style>
+        * {
+            font-family: 'Prompt', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      /* -webkit-filter: grayscale(100%) !important; 
-      filter: grayscale(100%) !important; */
-      font-family: "Prompt", sans-serif;
-      font-weight: bold;
-      font-size: 12px;
-      background-color: #f8f9fa;
-    }   
-      .spinner-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%; 
-    } 
-      #data-tableday th {
-      background-color: #0d6efd; /* สีเฮดเดอร์datatable */
-      color: #ffffff; /* สีข้อความในเฮดเดอร์datatable */
-    }
-      #data-tablemonth th {
-      background-color: green; /* สีเฮดเดอร์datatable */
-      color: #ffffff; /* สีข้อความในเฮดเดอร์datatable */
-    }
-  
-  /* ซ่อนปุ่ม + ที่ DataTables สร้างขึ้น */
-table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control::before {
-    display: none !important;
-}
-.modal-header h5 {
-  color: white !important;
-}
- .btn-close {
-  filter: invert(1) brightness(2); /* เปลี่ยนสีไอคอนเป็นสีขาว */
-}
-  
-  .modal-backdrop {
-  opacity: 0.2; /* ทำให้มืดน้อยลง */
-  background-color: #fff; /* เปลี่ยนเป็นสีขาว */
-}
-  
-  /* Cookie Consent Popup Styles */
+        body {
+            background-color: #f4f7fc;
+            color: #333;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Navbar สไตล์โมเดิร์น */
+        .navbar-modern {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #2d3748 !important;
+            padding: 8px 16px !important;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white !important;
+        }
+
+        /* Hero Section สไตล์ใหม่ */
+        .hero-section {
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            padding: 120px 0 80px;
+            margin-top: 40px;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://img5.pic.in.th/file/secure-sv1/13070434268ce53e04c29d3b12e9da98.jpg') center/cover;
+            opacity: 0.1;
+            animation: zoomInOut 20s infinite alternate;
+        }
+
+        @keyframes zoomInOut {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stats Cards */
+        .stats-container {
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            height: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        }
+
+        .stat-icon {
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            font-size: 32px;
+            color: white;
+        }
+
+        .stat-icon.daily { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .stat-icon.monthly { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .stat-icon.disabled { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 18px;
+            color: #718096;
+            font-weight: 500;
+        }
+
+        /* Job Cards */
+        .job-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .job-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            border: none;
+        }
+
+        .job-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .job-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .job-header.monthly { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .job-header.disabled { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+
+        .job-number {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .job-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+            flex: 1;
+        }
+
+        .job-body {
+            padding: 20px;
+        }
+
+        .job-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .job-info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #4a5568;
+        }
+
+        .job-info-item i {
+            width: 20px;
+            color: #667eea;
+            font-size: 16px;
+        }
+
+        .job-info-item.monthly i { color: #f5576c; }
+        .job-info-item.disabled i { color: #4facfe; }
+
+        .job-description {
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .job-status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .job-status.urgent {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        .job-status.normal {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .job-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 13px;
+            color: #718096;
+        }
+
+        /* Info Cards */
+        .info-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 0;
+            color: white;
+        }
+
+        .info-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            height: 100%;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .info-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .info-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .info-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-list li i {
+            width: 24px;
+            font-size: 18px;
+        }
+
+        .info-note {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        .footer-section {
+            background: #1a202c;
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-contact {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-contact li {
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-contact i {
+            width: 24px;
+            color: #667eea;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .map-container {
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #a0aec0;
+        }
+
+        /* Loading Spinner */
+        .spinner-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+        }
+
+        .custom-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #e2e8f0;
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .hero-subtitle {
+                font-size: 18px;
+            }
+            
+            .stat-card {
+                margin-bottom: 20px;
+            }
+            
+            .job-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+        }
+
+        /* Cookie Consent */
         #cookieConsent {
             position: fixed;
             bottom: 20px;
             left: 20px;
             right: 20px;
-            background-color: #fff;
+            background: white;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            z-index: 2000;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            z-index: 9999;
             display: none;
-            font-family: "line_seed_sans_th", sans-serif;
-        }
-        #cookieConsent p {
-            margin: 0 0 10px 0;
-            font-size: 14px;
-            color: #333;
-        }
-        #cookieConsent .btn {
-            margin-right: 10px;
-        }
-        #cookieSettingsModal .modal-body {
-            font-size: 14px;
-        }
-        #cookieSettingsModal .form-check {
-            margin-bottom: 15px;
-        }
-        #cookieSettingsModal .form-check-input:disabled {
-            opacity: 0.6;
-        }
-  .vertical-line {
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 80%;
-    width: 2px; /* ความหนาของเส้น */
-    background-color: #ccc; /* สีของเส้น */
-}
-.vertical-line2 {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 2px !important; /* ใช้ !important เพื่อบังคับให้มีผล */
-    height: 100%;
-    background-color: #ccc; /* สีของเส้น */
-    transform: translateX(-50%);
-    z-index: 10; /* ทำให้เส้นอยู่ด้านบน */
-    pointer-events: none; /* ป้องกันการคลิกที่เส้น */
-  
-}
-section#home {
-    position: relative;
-    height: 100vh;
-    width: 100%;
-}
-  
-  section#home::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-/*     background-image: url('https://img2.pic.in.th/pic/-10ff2e2c9aa21d68b.jpg'); */
-    background-image: url('https://img5.pic.in.th/file/secure-sv1/13070434268ce53e04c29d3b12e9da98.jpg');
-/*     background-image: url('https://img5.pic.in.th/file/secure-sv1/15418864779003c07.png'); */
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    opacity: 1; /* ปรับค่าความโปร่งแสง (0.1 - 1) */
-    z-index: -1;
-}
-
-    /* แสดง bfont1 บนจอคอมพิวเตอร์ */
-    #bfont1 {
-        display: block;
-    }
-
-    #bfont2 {
-        display: none;
-    }
-
-  
-
-/* เมื่อเปิดในมือถือ (หน้าจอเล็กกว่า 768px) */
-@media (max-width: 768px) {
-    section#home::before {
-    background-image: url('https://img2.pic.in.th/pic/-931ddedc9952be7d.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-  /*   opacity: 1; ปรับค่าความโปร่งแสง (0.1 - 1) */
-      
-    }
-    #bfont1 {
-            display: none;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
-        #bfont2 {
-            display: block;
+        @media (min-width: 768px) {
+            #cookieConsent {
+                left: auto;
+                right: 20px;
+                margin: 0;
+            }
         }
-}
-  
-
-
-
-.text-with-white-border {
-    text-shadow: 
-        -1px -1px 0 white,  
-         1px -1px 0 white,
-        -1px  1px 0 white,
-         1px  1px 0 white;
-}
-  
-#jobpagetitle {
-    background-image: url('https://img5.pic.in.th/file/secure-sv1/-4-12f23210aacca4fee.png');
-    background-size: cover; /* ทำให้ภาพครอบคลุมทั้งพื้นที่ */
-    background-position: center; /* จัดกึ่งกลางภาพ */
-    background-repeat: no-repeat; /* ไม่ให้ภาพซ้ำ */
-    padding: 40px 0;
-    border-radius: 0px;
-    /* min-height: 100vh; ปรับให้ section มีความสูงเท่าหน้าจอ (ถ้าต้องการ) */
-}
-
-  
-
-
     </style>
-  <body>
-    
-   
-    <!-- ===============================================-->
-    <!--    Main Content-->
-    <!-- ===============================================-->
-    <main class="main" id="top">
-      <nav id="navbarid" class="navbar navbar-expand-lg navbar-light fixed-top py-1 backdrop" data-navbar-on-scroll="data-navbar-on-scroll">
-        <a class="navbar-brand d-flex align-items-center fw-bolder fs-2 fst-italic" href="#">
-            <img src="https://img2.pic.in.th/pic/__3_-removebg-preview4509f075d941dc45.png" 
-             alt="HR Logo" width="80" height="50">
-            <div class="text-info text-with-white-border">HR_</div>
-            <div class="text-warning text-with-white-border">ประชาสัมพันธ์</div>
-          </a><button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-          <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent1">
-            <ul class="navbar-nav ms-auto pt-2 pt-lg-0">
-              <li class="nav-item px-2"><a class="nav-link fw-medium active" aria-current="page" href="#">Home</a></li>
-              <li class="nav-item px-2"><a class="nav-link fw-medium" href="#jobpage">ตำแหน่งงาน</a></li>
-
-            </ul>
-          
-
-          </div>
-       
-      </nav>
-      
-      
-      
-         <!-- Cookie Consent Popup -->
-        <div id="cookieConsent">
-           <!-- ปุ่มกากบาท -->
-    <button id="closeCookieConsent" onclick="closepageacceptAllCookies()" style="position: absolute; top: 10px; right: 10px; border: none; background: transparent; font-size: 20px; cursor: pointer;">&times;</button>
-
-            <p>เว็บไซต์นี้ใช้คุกกี้<br>เราใช้คุกกี้เพื่อเพิ่มประสิทธิภาพ และประสบการณ์ที่ดีในการใช้งานเว็บไซต์ คุณสามารถเลือกตั้งค่าความยินยอมการใช้คุกกี้ได้ โดยคลิก "การตั้งค่าคุกกี้"</p>
-            <p><a href="#" data-bs-toggle="modal" data-bs-target="#cookieSettingsModal" style="font-family: line_seed_sans_th, sans-serif;">การตั้งค่าคุกกี้</a> | <a href="privacy.html">นโยบายความเป็นส่วนตัว</a></p>
-           <button id="acceptAllCookies" class="btn btn-primary" style="float: right;font-family: line_seed_sans_th, sans-serif;">ยอมรับ</button>
-
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-modern fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="https://img2.pic.in.th/pic/__3_-removebg-preview4509f075d941dc45.png" alt="HR Logo" width="80" height="50">
+                <span class="brand-text">HR ประชาสัมพันธ์</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home"><i class="fas fa-home me-2"></i>หน้าหลัก</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#jobs"><i class="fas fa-briefcase me-2"></i>ตำแหน่งงาน</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#info"><i class="fas fa-info-circle me-2"></i>ข้อมูลการสมัคร</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact"><i class="fas fa-phone-alt me-2"></i>ติดต่อเรา</a>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </nav>
 
-        <!-- Cookie Settings Modal -->
-        <div class="modal fade" id="cookieSettingsModal" tabindex="-1" aria-labelledby="cookieSettingsLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header" style="background-color: #0d6efd; color: white;">
-                        <h5 class="modal-title" id="cookieSettingsLabel">การตั้งค่าความเป็นส่วนตัว</h5>
-                        <button type="button" id="buttoncookieclose" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">ยินดีต้อนรับสู่ HR ประชาสัมพันธ์</h1>
+                <p class="hero-subtitle">บริษัท เชียงใหม่โฟรเซ่นฟูดส์ จำกัด (มหาชน)</p>
+                <p class="mb-4">ท่านสามารถดูประกาศรับสมัครพนักงานและข่าวสารของแผนก HR ผ่านเว็บไซต์นี้ได้เลย</p>
+                <a href="#jobs" class="btn btn-light btn-lg rounded-pill px-5">
+                    <i class="fas fa-arrow-down me-2"></i>ดูตำแหน่งงาน
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Cards -->
+    <div class="container stats-container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="stat-card" onclick="location.href='#daily-jobs'">
+                    <div class="stat-icon daily">
+                        <i class="fas fa-sun"></i>
                     </div>
-                    <div class="modal-body">
+                    <div class="stat-number" id="daily-count">0</div>
+                    <div class="stat-label">พนักงานรายวัน</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card" onclick="location.href='#monthly-jobs'">
+                    <div class="stat-icon monthly">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="stat-number" id="monthly-count">0</div>
+                    <div class="stat-label">พนักงานรายเดือน</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card" onclick="location.href='#disabled-jobs'">
+                    <div class="stat-icon disabled">
+                        <i class="fas fa-wheelchair"></i>
+                    </div>
+                    <div class="stat-number" id="daily-disabled-count">0</div>
+                    <div class="stat-label">พนักงานรายวัน (คนพิการ)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jobs Section -->
+    <section class="job-section" id="jobs">
+        <div class="container">
+            <h2 class="section-title text-center">ตำแหน่งงานที่เปิดรับสมัคร</h2>
+            <p class="text-center text-danger mb-5">**ทุกตำแหน่ง ต้องมีสุขภาพแข็งแรง ไม่มีโรคประจำตัว และสายตาไม่บอดสี**</p>
+            
+            <!-- Loading Indicator -->
+            <div class="spinner-container" id="jobs-loading">
+                <div class="custom-spinner"></div>
+            </div>
+
+            <!-- Jobs Content -->
+            <div id="jobs-content" style="display: none;">
+                <!-- Daily Jobs -->
+                <div id="daily-jobs" class="mb-5">
+                    <h3 class="mb-4"><i class="fas fa-sun text-primary me-2"></i>พนักงานรายวัน</h3>
+                    <div class="row" id="card-container-day"></div>
+                    <div class="row" id="card-container-day1" style="display: none;">
+                        <div class="col-12 text-center py-5">
+                            <i class="fas fa-info-circle fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">ไม่มีตำแหน่งว่างสำหรับพนักงานรายวัน</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monthly Jobs -->
+                <div id="monthly-jobs" class="mb-5">
+                    <h3 class="mb-4"><i class="fas fa-calendar-alt text-danger me-2"></i>พนักงานรายเดือน</h3>
+                    <div class="row" id="card-container-month"></div>
+                    <div class="row" id="card-container-month1" style="display: none;">
+                        <div class="col-12 text-center py-5">
+                            <i class="fas fa-info-circle fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">ไม่มีตำแหน่งว่างสำหรับพนักงานรายเดือน</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disabled Jobs -->
+                <div id="disabled-jobs" class="mb-5">
+                    <h3 class="mb-4"><i class="fas fa-wheelchair text-info me-2"></i>พนักงานรายวัน (คนพิการ)</h3>
+                    <div class="row" id="card-container-day-disabled"></div>
+                    <div class="row" id="card-container-day-disabled1" style="display: none;">
+                        <div class="col-12 text-center py-5">
+                            <i class="fas fa-info-circle fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">ไม่มีตำแหน่งว่างสำหรับพนักงานรายวันคนพิการ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="info-section" id="info">
+        <div class="container">
+            <div class="row g-4">
+                <!-- เอกสารประกอบการสมัคร -->
+                <div class="col-lg-6">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3 class="info-title">เอกสารประกอบการสมัครงาน</h3>
+                        <ul class="info-list">
+                            <li><i class="fas fa-file"></i> สำเนาทะเบียนบ้าน 2 ฉบับ</li>
+                            <li><i class="fas fa-id-card"></i> สำเนาบัตรประจำตัวประชาชน 2 ฉบับ</li>
+                            <li><i class="fas fa-hospital"></i> ใบรับรองแพทย์</li>
+                            <li><i class="fas fa-camera"></i> รูปถ่าย 1 ใบ</li>
+                            <li><i class="fas fa-heart"></i> สำเนาทะเบียนสมรส/ทะเบียนหย่า</li>
+                            <li><i class="fas fa-pen"></i> สำเนาเปลี่ยนชื่อ-นามสกุล/เปลี่ยนคำนำหน้านาม</li>
+                        </ul>
+                        <div class="info-note">
+                            <i class="fas fa-envelope me-2"></i>
+                            **กรณีสมัครตำแหน่งพนักงานรายเดือน**<br>
+                            สามารถส่งเอกสารเป็นไฟล์ PDF มาทาง email: aporn@cmfrozen.com
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- สวัสดิการ -->
+                <div class="col-lg-6">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h3 class="info-title">สวัสดิการ</h3>
+                        <ul class="info-list">
+                            <li><i class="fas fa-utensils"></i> ข้าวฟรี</li>
+                            <li><i class="fas fa-tshirt"></i> ชุดยูนิฟอร์ม</li>
+                            <li><i class="fas fa-shield-alt"></i> ประกันสังคม</li>
+                            <li><i class="fas fa-heartbeat"></i> ตรวจสุขภาพประจำปี</li>
+                            <li><i class="fas fa-life-ring"></i> ประกันชีวิตกลุ่ม</li>
+                            <li><i class="fas fa-clock"></i> ค่าโอที, ค่ากะดึก</li>
+                            <li><i class="fas fa-piggy-bank"></i> กองทุนสำรองเลี้ยงชีพ</li>
+                            <li><i class="fas fa-ellipsis-h"></i> และอื่นๆ</li>
+                        </ul>
+                        <div class="info-note">
+                            <i class="fas fa-info-circle me-2"></i>
+                            **เงื่อนไขเป็นไปตามประกาศที่บริษัทกำหนด**
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer/Contact Section -->
+    <footer class="footer-section" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3 class="footer-title">ติดต่อสอบถามเพิ่มเติม</h3>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-building"></i> บริษัท เชียงใหม่โฟรเซ่นฟูดส์ จำกัด(มหาชน)</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 299 หมู่ 14 ต.แม่แฝกใหม่ อ.สันทราย จ.เชียงใหม่ 50290</li>
+                        <li><i class="fas fa-phone"></i> 053-848088 ถึง 92 แผนกสรรหาและฝึกอบรม</li>
+                        <li><i class="fas fa-envelope"></i> aporn@cmfrozen.com</li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="map-container">
+                        <iframe
+                            width="100%"
+                            height="300"
+                            style="border:0;"
+                            loading="lazy"
+                            allowfullscreen
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4486.973947706882!2d98.98361121315668!3d18.972060392411578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30da17f30b966a69%3A0x899f59ad1f1cc97c!2z4Lia4Lij4Li04Lip4Lix4LiXIOC5gOC4iuC4teC4ouC4h-C5g-C4q-C4oeC5iOC5guC4n-C4o-C5gOC4i-C5iOC4meC4n-C4ueC4lOC4quC5jCDguIjguLPguIHguLHguJQgKOC4oeC4q-C4suC4iuC4mSk!5e0!3m2!1sth!2sth!4v1740409141639!5m2!1sth!2sth">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Visitor Count -->
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <div id="visitor-count" style="color: #a0aec0;">
+                        กำลังโหลดจำนวนผู้เยี่ยมชม...
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2026 เรียบเรียงโดย นาย ภาคภูมิ เรือนมูล HrSupport ที่ปรึกษา อ.ธีรพงศ์ พรหมวังค์ ไอทีcm1ร่วมกับไอทีcm2<br>Cr.deepseek.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent -->
+    <div id="cookieConsent">
+        <button id="closeCookieConsent" onclick="closepageacceptAllCookies()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
+        <p class="mb-3">เว็บไซต์นี้ใช้คุกกี้เพื่อเพิ่มประสิทธิภาพและประสบการณ์ที่ดีในการใช้งาน</p>
+        <div class="d-flex gap-2">
+            <button id="acceptAllCookies" class="btn btn-primary flex-grow-1">ยอมรับทั้งหมด</button>
+            <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#cookieSettingsModal">ตั้งค่า</button>
+        </div>
+    </div>
+
+    <!-- Cookie Settings Modal -->
+    <div class="modal fade" id="cookieSettingsModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">การตั้งค่าความเป็นส่วนตัว</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="essentialCookies" checked disabled>
                             <label class="form-check-label" for="essentialCookies">
-                                <strong>คุกกี้พื้นฐานที่จำเป็น (เปิดใช้งานตลอดเวลา)</strong><br>
-                                คุกกี้พื้นฐานที่จำเป็น เพื่อช่วยให้การทำงานหลักของเว็บไซต์ใช้งานได้ รวมถึงการเข้าถึงพื้นที่ที่ปลอดภัยต่าง ๆ ของเว็บไซต์ หากไม่มีคุกกี้นี้เว็บไซต์จะไม่สามารถทำงานได้อย่างเหมาะสม และจะใช้งานได้โดยการตั้งค่าเริ่มต้น โดยไม่สามารถปิดการใช้งานได้ <a href="#">รายละเอียดคุกกี้</a>
+                                <strong>คุกกี้พื้นฐานที่จำเป็น</strong>
                             </label>
                         </div>
+                    </div>
+                    <div class="mb-3">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="analyticsCookies">
                             <label class="form-check-label" for="analyticsCookies">
-                                <strong>คุกกี้ในส่วนวิเคราะห์</strong><br>
-                                คุกกี้ในส่วนวิเคราะห์ จะช่วยให้เว็บไซต์เข้าใจรูปแบบการใช้งานของผู้เข้าชมและจะช่วยปรับปรุงประสบการณ์การใช้งาน โดยการเก็บรวบรวมข้อมูลและรายงานผลการใช้งานของผู้ใช้งาน <a href="#">รายละเอียดคุกกี้</a>
+                                <strong>คุกกี้ในส่วนวิเคราะห์</strong>
                             </label>
                         </div>
+                    </div>
+                    <div class="mb-3">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="marketingCookies">
                             <label class="form-check-label" for="marketingCookies">
-                                <strong>คุกกี้ในส่วนการตลาด</strong><br>
-                                คุกกี้ในส่วนการตลาด ใช้เพื่อติดตามพฤติกรรมผู้เข้าชมเว็บไซต์เพื่อแสดงโฆษณาที่เหมาะสมสำหรับผู้ใช้งานแต่ละรายและเพื่อเพิ่มประสิทธิผลการโฆษณาสำหรับผู้เผยแพร่และผู้โฆษณาสำหรับบุคคลที่สาม <a href="#">รายละเอียดคุกกี้</a>
+                                <strong>คุกกี้ในส่วนการตลาด</strong>
                             </label>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" style="font-family: line_seed_sans_th, sans-serif;" id="saveCookieSettings" class="btn btn-primary">บันทึกการตั้งค่า</button>
-                        <button type="button" style="font-family: line_seed_sans_th, sans-serif;" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    <button type="button" id="saveCookieSettings" class="btn btn-primary">บันทึกการตั้งค่า</button>
                 </div>
             </div>
         </div>
-      
-      
-     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header" style="background-color: blue;color: white; " >
-        <h5 class="modal-title" id="exampleModalLabel">รายละเอียดทั้งหมด</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer" style="background-color: blue;color: white; " >
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
- 
-      </div>
-    </div>
-  </div>
-</div>
-      
-      
- <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="false">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">รายละเอียดทั้งหมด</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
- 
-      </div>
-    </div>
-  </div>
-</div>   
-
-      
-      <section class="py-0" id="home">
-        <div class="bg-holder d-none d-sm-block" style="background-image:url(https://themewagon.github.io/QuickStart/assets/img/hero-services-img.webp);background-position:right top;background-size:contain;"></div>
-        <!--/.bg-holder-->
-        <div class="bg-holder d-sm-none" style="background-image:url(https://themewagon.github.io/QuickStart/assets/img/hero-services-img.webp);background-position:right bottom;background-size:contain;"></div>
-        <!--/.bg-holder-->
-        <div class="container">
-          <div class="row">
-            
-            
-      <div id="bfont1" class="col-md-7 col-lg-6 py-10 text-sm-start text-center">
-    <b class="mt-6 mb-sm-4 display-2 fw-semi-bold lh-sm fs-4 fs-lg-6 fs-xxl-8 text-with-white-border" style="font-family: Prompt, sans-serif; font-size: 20px !important; color: black;">
-      บริษัท เชียงใหม่โฟรเซ่นฟูดส์ จำกัด (มหาชน)<br>
-ขอน้อมรำลึกในพระมหากรุณาธิคุณอย่างหาที่สุดมิได้
-และขอแสดงความอาลัยอย่างสุดซึ้ง
-ต่อการสวรรคตของ
-สมเด็จพระนางเจ้าสิริกิติ์ พระบรมราชินีนาถ พระบรมราชชนนีพันปีหลวง
-ด้วยเกล้าด้วยกระหม่อมขอเดชะ
-ข้าพระพุทธเจ้า คณะกรรมการ ผู้บริหาร และพนักงาน<br>
-บริษัท เชียงใหม่โฟรเซ่นฟูดส์ จำกัด (มหาชน)
-<br class="d-block d-lg-none d-xl-block" />
-    </b>
-
-  
-<br>
-    <p class="mb-4 fs-1 text-with-white-border" style="color: black !important;font-size: 18px !important;">
-        ท่านสามารถดูประกาศรับสมัครพนักงานและข่าวสารของแผนก HR ผ่านเว็บไซด์นี้ได้เลย
-    </p>
-</div>
-            
-              <div id="bfont2" class="col-md-7 col-lg-6 py-8 text-sm-start text-center">
-  
-
-    <b class="text-with-white-border" style="font-family: Prompt, sans-serif; font-size: 16px !important; color: black;">
-        <!-- ยินดีต้อนรับเข้าสู่เว็บเพจประชาสัมพันธ์ข่าวสาร ของฝ่าย บุคคลธุรการ/แผนก สรรหาและจัดอบรม Cm2 -->
-       บริษัท เชียงใหม่โฟรเซ่นฟูดส์ จำกัด (มหาชน)<br>
-ขอน้อมรำลึกในพระมหากรุณาธิคุณอย่างหาที่สุดมิได้
-และขอแสดงความอาลัยอย่างสุดซึ้ง
-ต่อการสวรรคตของ
-สมเด็จพระนางเจ้าสิริกิติ์ พระบรมราชินีนาถ พระบรมราชชนนีพันปีหลวง
-ด้วยเกล้าด้วยกระหม่อมขอเดชะ
-ข้าพระพุทธเจ้า คณะกรรมการ ผู้บริหาร และพนักงาน<br>
-บริษัท เชียงใหม่โฟรเซ่นฟูดส์ จำกัด (มหาชน)
-        <br class="d-block d-lg-none d-xl-block" />
-    </b>
-
-    <p class="mb-4 fs-1 text-with-white-border py-4" style="color: black !important;font-size: 15px !important;">
-        ท่านสามารถดูประกาศรับสมัครพนักงานและข่าวสารของแผนก HR ผ่านเว็บไซด์นี้ได้เลย
-    </p>
-</div>
-            
-            
-          </div>
-        </div>
-      </section>
-
-<section class="py-5" id="jobpagetitle">
-  <div class="container">
-    <div class="row flex-center">
-      <div class="col-md-5 order-md-0 text-center text-md-start"><img class="img-fluid mb-4" src="https://themewagon.github.io/jobest/v1.0.0/assets/img/illustrations/jobs.png" width="450" alt="" /></div>
-      <div class="col-md-5 text-center text-md-center" id="pagedaily-count">
-        <!-- Loading Indicator -->
-        <div class="loading-indicator" id="jobs-loading" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px;">
-          <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          <p class="mt-3" style="color: #666;">กำลังโหลดข้อมูลตำแหน่งงาน...</p>
-        </div>
-        
-        <!-- Actual Content (hidden initially) -->
-        <div id="jobs-content" style="display: none;">
-          <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3" style="color: black;font-size: 26px !important;">ตำแหน่งงานที่เปิดรับสมัคร</h5>
-          <h6 class="fw-bold fs-1 heading-color text-center"> 
-            <a class="fw-bold nav-link fw-medium" href="#pageday" style="color: black;font-family: Prompt, sans-serif; font-size: 20px !important;">
-              พนักงานรายวัน<br> <span id="daily-count" style="color: black;"></span>
-            </a>
-          </h6>
-         
-          <h6 class="fw-bold fs-1 heading-color text-center">
-            <a class="fw-bold nav-link fw-medium" href="#pagemont" style="color: black;font-family: Prompt, sans-serif; font-size: 20px !important;">
-              พนักงานรายเดือน<br> <span id="monthly-count" style="color: black;"></span>
-            </a>
-          </h6>
-          
-           <h6 class="fw-bold fs-1 heading-color text-center">
-            <a class="fw-bold nav-link fw-medium" href="#pageday-disabled" style="color: black;font-family: Prompt, sans-serif; font-size: 20px !important;">
-              พนักงานรายวัน (คนพิการ)<br> <span id="daily-disabled-count" style="color: black;"></span>
-            </a>
-          </h6>
-          
-          <br>
-          <p class="text-center" style="color: red;">
-            **ทุกตำแหน่ง ต้องมีสุขภาพแข็งแรง ไม่มีโรคประจำตัว และสายตาไม่บอดสี**
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="py-5" id="jobpage" style="background-color: white;">
-  <div class="container">
-    <!-- พนักงานรายวันปกติ -->
-    <div class="col-sm-12 col-lg-12 pb-lg-6 px-lg-4 pb-4" id="pageday">
-      <div class="card" style="background-color: white; border: 2px solid #0d6efd;border-radius: 8px;">
-        <div class="card-header" style="background-color: #0d6efd; color: white; border-top-left-radius: 4px; border-top-right-radius:4px; display: flex; justify-content: center; align-items: center; height: 100%;">
-          <h5 class="text-center" style="color: white; font-size: 23px !important; margin: 0;">พนักงานรายวัน</h5>
-        </div>
-        <div class="card-body px-2">
-          <div class="row" id="card-container-day">
-            <!-- การ์ดสำหรับพนักงานรายวันจะถูกเพิ่มที่นี่ -->
-          </div>
-          <div class="row" id="card-container-day1" style="display:none;">
-            <p class="text-center" style="color: red;">ไม่มีตำแหน่งว่างสำหรับพนักงานรายวัน</p>
-          </div>
-        </div>
-      </div>
     </div>
 
-   
-    <!-- พนักงานรายเดือน -->
-    <div class="col-sm-12 col-lg-12 pb-lg-6 px-lg-4 pb-4" id="pagemont">
-      <div class="card" style="background-color: white; border: 2px solid purple;border-radius: 8px;">
-        <div class="card-header" style="background-color: purple; color: white; border-top-left-radius: 4px; border-top-right-radius:4px; display: flex; justify-content: center; align-items: center; height: 100%;">
-          <h5 class="text-center" style="color: white; font-size: 23px !important; margin: 0;">พนักงานรายเดือน</h5>
-        </div>
-        <div class="card-body px-2">
-          <div class="row" id="card-container-month">
-            <!-- การ์ดสำหรับพนักงานรายเดือนจะถูกเพิ่มที่นี่ -->
-          </div>
-          <div class="row" id="card-container-month1" style="display:none;">
-            <p class="text-center" style="color: red;">ไม่มีตำแหน่งว่างสำหรับพนักงานรายเดือน</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     
-    
-     <!-- พนักงานรายวันคนพิการ -->
-    <div class="col-sm-12 col-lg-12 pb-lg-6 px-lg-4 pb-4" id="pageday-disabled">
-      <div class="card" style="background-color: white; border: 2px solid green;border-radius: 8px;">
-        <div class="card-header" style="background-color: green; color: white; border-top-left-radius: 4px; border-top-right-radius:4px; display: flex; justify-content: center; align-items: center; height: 100%;">
-          <h5 class="text-center" style="color: white; font-size: 23px !important; margin: 0;">พนักงานรายวัน (คนพิการ)</h5>
-        </div>
-        <div class="card-body px-2">
-          <div class="row" id="card-container-day-disabled">
-            <!-- การ์ดสำหรับพนักงานรายวันคนพิการจะถูกเพิ่มที่นี่ -->
-          </div>
-          <div class="row" id="card-container-day-disabled1" style="display:none;">
-            <p class="text-center" style="color: red;">ไม่มีตำแหน่งว่างสำหรับพนักงานรายวันคนพิการ</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    
-  </div>
-</section>
-
-
-
-      <section class="py-6" style="background-image:url(https://img2.pic.in.th/pic/-22-1a800bbe428ce6066.png);background-position:center;background-size: cover;background-repeat: no-repeat;">
-       
- <div class="container">
-    <div class="row justify-content-center position-relative" style="border: none; padding: 10px; border-radius: 5px;">
-
-        <!-- คอลัมน์ที่ 1 -->
-        <div class="col-sm-12 col-lg-6 pb-lg-6 px-lg-4 pb-4 mb-4" style="background-color: none; border: none; padding: 10px;border-radius: 5px;height: 400px;">
-          <div class="card" style="background-color: white; border: none; padding: 10px;border-radius: 5px;height: 400px;">
-            <div class="card-body p-3">
-                <div class="col-12 text-center">
-                    <h6 class="fw-bold fs-3 fs-lg-5 lh-sm" style="font-family: Prompt, sans-serif; font-size: 20px !important ; color: red;">
-                        เอกสารประกอบการสมัครงาน
-                    </h6>
-                    <hr>
-                </div>
-                <p class="mb-0 card-text" style="font-family: Prompt, sans-serif; font-size: 13px !important ; color: black;"><br>
-                    1. สำเนาทะเบียนบ้าน 2 ฉบับ<br>
-                    2. สำเนาบัตรประจำตัวประชาชน 2 ฉบับ<br>
-                    3. ใบรับรองแพทย์<br>
-                    4. รูปถ่าย 1 ใบ<br>
-                    5. สำเนาทะเบียนสมรส/ทะเบียนหย่า<br>
-                    6. สำเนาเปลี่ยนชื่อ-นามสกุล/เปลี่ยนคำนำหน้านาม นาง/นางสาว<br>
-                </p>
-            </div>
-            
-            <p class="text-center" style="color:brown;">
-                **กรณีสมัครตำแหน่งพนักงานรายเดือน**<br>**สามารถส่งเอกสารเป็นไฟล์PDFมาทาง email: aporn@cmfrozen.com** <br><br> 
-                **ตำแหน่งเจ้าหน้าที่ส่งเสริมต้องมีใบอนุญาติขับขี่และรถจักรยานยนต์เป็นของตนเอง** 
-            </p>
-            <hr>
-        </div>
-</div>
-        <!-- คอลัมน์ที่ 2 -->
-        <div class="col-sm-12 col-lg-6 pb-lg-6 px-lg-4 pb-4" style="background-color: none; border: none; padding: 10px;border-radius: 5px;height: 400px;">
-           <div class="card" style="background-color: white; border: none; padding: 10px;border-radius: 5px;height: 400px;">
-            <div class="card-body p-3">
-                <div class="col-12 text-center">
-                    <h6 class="fw-bold fs-3 fs-lg-5 lh-sm" style="font-family: Prompt, sans-serif; font-size: 20px !important ; color: red;">
-                        สวัสดิการ
-                    </h6>
-                    <hr>
-                </div>
-                <p class="mb-0 card-text" style="font-family: Prompt, sans-serif; font-size: 13px !important ; color: black;"><br>
-                   ✅ ข้าวฟรี<br>✅ ชุดยูนิฟอร์ม<br>✅ ประกันสังคม<br>✅ ตรวจสุขภาพประจำปี<br>✅ ประกันชีวิตกลุ่ม<br>✅ ค่าโอที,ค่ากะดึก<br>✅ กองทุนสำรองเลี้ยงชีพ<br>✅ และอื่นๆ
-                </p>
-            </div>
-            
-            <p class="text-center" style="color:brown;">
-                **เงื่อนไขเป็นไปตามประกาศที่บริษัทกำหนด**  
-            </p>
-            <hr>
-        </div>
-</div>
-    </div>
-</div>
-      
-      </section>
-
-
-      <section class="py-0 bg-primary-gradient" id="pagefooter">
-        <div class="bg-holder" style="background-image:url(assets/img/illustrations/footer-bg.png);background-position:center;background-size:cover;"></div>
-        <!--/.bg-holder-->
-        <div class="container">
-         <div class="row flex-center py-4">
-    <div class="col-lg-6 mb-4 text-center">
-        <h1 class="text-white fw-bold" style="font-family: Prompt, sans-serif; font-size: 25px !important ;">ติดต่อสอบถามเพิ่มเติมและสมัครได้ที่</h1>
-        <p class="mb-2 fs-1" style="font-family: Prompt, sans-serif; font-size: 15px !important ; color: white;">
-            บริษัท เชียงใหม่โฟรเซ่นฟูดส์ จำกัด(มหาชน)<br>
-            299 หมู่ 14 ต.แม่แฝกใหม่ อ.สันทราย จ.เชียงใหม่ 50290<br>
-            <i class="fa-solid fa-phone-volume me-2"></i>053-848088 ถึง 92 แผนกสรรหาและฝึกอบรม<br> หรือ email: aporn@cmfrozen.com
-        </p>
-        <!-- เพิ่มแผนที่ Google Maps ที่นี่ -->
-      <br><br>
-      <iframe 
-    width="100%" 
-    height="450" 
-    style="border:0;" 
-    loading="lazy" 
-    allowfullscreen 
-    referrerpolicy="no-referrer-when-downgrade"
-     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4486.973947706882!2d98.98361121315668!3d18.972060392411578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30da17f30b966a69%3A0x899f59ad1f1cc97c!2z4Lia4Lij4Li04Lip4Lix4LiXIOC5gOC4iuC4teC4ouC4h-C5g-C4q-C4oeC5iOC5guC4n-C4o-C5gOC4i-C5iOC4meC4n-C4ueC4lOC4quC5jCDguIjguLPguIHguLHguJQgKOC4oeC4q-C4suC4iuC4mSk!5e0!3m2!1sth!2sth!4v1740409141639!5m2!1sth!2sth" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-      
-      </iframe>
-      
-
-
-
-    </div>
-</div>
-    
-          <div class="row flex-center">
-            <div class="col-auto my-0">
-              <ul class="list-unstyled list-inline">
-                <li class="list-inline-item me-3"><a href="#!"><svg class="bi bi-twitter" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#1F3A63" viewBox="0 0 16 16">
-                      <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"></path>
-                    </svg></a></li>
-                <li class="list-inline-item me-3"><a class="text-decoration-none" href="#!"><svg class="bi bi-facebook" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#1F3A63" viewBox="0 0 16 16">
-                      <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"></path>
-                    </svg></a></li>
-                <li class="list-inline-item me-3"><a href="#!"><svg class="bi bi-instagram" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#1F3A63" viewBox="0 0 16 16">
-                      <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"> </path>
-                    </svg></a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="row justify-content-center">
-            <div class="col-auto mb-2">
-             <center> <div id="visitor-count" style="font-size: 14px; color: white; margin-bottom: 20px;">
-  กำลังโหลดจำนวนผู้เยี่ยมชม...
-</div></center>
-              <p class="mb-2 fs--1 text-white my-2 text-center">&copy;2025 เรียบเรียงโดย นาย ภาคภูมิ เรือนมูล HrSupport ที่ปรึกษา อ.ธีรพงศ์ พรหมวังค์ ไอทีcm1ร่วมกับไอทีcm2&nbsp;By <a class="text-white" href="https://themewagon.com/" target="_blank">ThemeWagon </a></p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main><!-- ===============================================-->
-    <!--    End of Main Content-->
-    <!-- ===============================================-->
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!--   <script src="https://unpkg.com/sheetrock@1.2.0/dist/sheetrock.min.js"></script> -->
-  <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>  
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <script>
-   
-    function closepageacceptAllCookies(){
-      
-      document.getElementById("cookieConsent").style.display = "none";
-      
-    }
-    
-    
-    // เมื่อกดปุ่มบันทึกคุกกี้
-document.getElementById("saveCookieSettings").addEventListener("click", function () {
-    const analyticsCookies = document.getElementById("analyticsCookies").checked ? "on" : "off";
-    const marketingCookies = document.getElementById("marketingCookies").checked ? "on" : "off";
-
-    // อัปเดตค่าลงใน localStorage
-    localStorage.setItem("cookieSettings", JSON.stringify({
-        essentialCookies: "on", // คุกกี้จำเป็นต้องเปิดเสมอ
-        analyticsCookies: analyticsCookies,
-        marketingCookies: marketingCookies
-    }));
-
-    alert("บันทึกการตั้งค่าคุกกี้เรียบร้อยแล้ว!");
-  $('#buttoncookieclose').click();
-});
-
-// โหลดค่าคุกกี้เมื่อเปิด Modal
-document.addEventListener("DOMContentLoaded", function () {
-    const cookieSettings = JSON.parse(localStorage.getItem("cookieSettings") || "{}");
-
-    // ตั้งค่าเริ่มต้นจาก localStorage
-    document.getElementById("analyticsCookies").checked = cookieSettings.analyticsCookies === "on";
-    document.getElementById("marketingCookies").checked = cookieSettings.marketingCookies === "on";
-});
-
-    
-    
-document.getElementById("acceptAllCookies").addEventListener("click", function () {
-    // ดึงค่าที่ตั้งไว้ใน Modal
-    const analyticsCookies = document.getElementById("analyticsCookies").checked ? "on" : "off";
-    const marketingCookies = document.getElementById("marketingCookies").checked ? "on" : "off";
-
-    // ตั้งเวลาหมดอายุ (3 นาที)
-    const expirationMinutes = 24 * 60;
-   // const expirationMinutes = 30 * 24 * 60; // 30 วัน
-
-    const acceptanceTime = new Date().toISOString();
-    const expirationTime = new Date(Date.now() + expirationMinutes * 60 * 1000).toISOString();
-
-    // บันทึกค่าลง localStorage
-    localStorage.setItem("cookieAccepted", "true");
-    localStorage.setItem("acceptanceTime", acceptanceTime);
-    localStorage.setItem("expirationTime", expirationTime);
-    localStorage.setItem("cookieSettings", JSON.stringify({
-        essentialCookies: "on",
-        analyticsCookies: analyticsCookies,
-        marketingCookies: marketingCookies
-    }));
-    localStorage.setItem("referer", document.referrer || window.location.hostname);
-    localStorage.setItem("privacyPolicyAccepted", "true");
-
-    // ส่งข้อมูลไปที่เซิร์ฟเวอร์
-    var googleScriptUrl = "https://script.google.com/macros/s/AKfycbx_dcazedMQ61p7rEmZAO5K9lzZsb8jixOoA-vBjEREFTkpO1sAMFauPKAiqFKnLXVr/exec";
-    $.ajax({
-        url: googleScriptUrl,
-        dataType: 'json',
-        data: {
-            essentialCookies: "on",
-            analyticsCookies: analyticsCookies,
-            marketingCookies: marketingCookies,
-            referer: document.referrer || window.location.hostname,
-            acceptanceTime: acceptanceTime,
-            expirationTime: expirationTime,
-            privacyPolicyAccepted: "true"
-        },
-        success: function (response) {
-            console.log("บันทึกสำเร็จ: ", response);
-            alert("คุณได้ยอมรับคุกกี้และนโยบายความเป็นส่วนตัวแล้ว!");
-
-            // ซ่อน Cookie Consent Popup
+    <script>
+        // ฟังก์ชันปิด Cookie Consent
+        function closepageacceptAllCookies() {
             document.getElementById("cookieConsent").style.display = "none";
-        },
-        error: function (error) {
-            console.error("เกิดข้อผิดพลาด: ", error);
         }
-    });
-});
 
-
-// ฟังก์ชันตรวจสอบเวลาหมดอายุ
-function checkCookieExpiration() {
-    const expirationTime = localStorage.getItem("expirationTime");
-    const cookieAccepted = localStorage.getItem("cookieAccepted");
-
-    if (expirationTime) {
-        const now = new Date();
-        const expirationDate = new Date(expirationTime);
-
-        // ถ้าเวลาปัจจุบันเกินเวลาหมดอายุ
-        if (now > expirationDate) {
-            // ลบข้อมูลทั้งหมดที่เกี่ยวข้องกับคุกกี้
-            localStorage.removeItem("cookieAccepted");
-            localStorage.removeItem("acceptanceTime");
-            localStorage.removeItem("expirationTime");
-            localStorage.removeItem("cookieSettings");
-            localStorage.removeItem("referer");
-            localStorage.removeItem("privacyPolicyAccepted");
-
-            console.log("คุกกี้หมดอายุแล้ว ข้อมูลถูกลบออกจาก localStorage");
-
-            // แสดง cookieConsent เพื่อให้ผู้ใช้ยอมรับคุกกี้ใหม่
-            document.getElementById("cookieConsent").style.display = "block";
-        } else {
-            console.log("คุกกี้ยังไม่หมดอายุ");
-
-            // ถ้าผู้ใช้เคยยอมรับคุกกี้แล้ว ให้ซ่อน cookieConsent
-            if (cookieAccepted === "true") {
-                document.getElementById("cookieConsent").style.display = "none";
+        // ตรวจสอบและแสดง Cookie Consent
+        function checkCookieConsent() {
+            if (!localStorage.getItem('cookieAccepted')) {
+                document.getElementById("cookieConsent").style.display = "block";
             }
         }
-    } else {
-        console.log("ไม่มีข้อมูลคุกกี้ใน localStorage");
 
-        // ถ้าไม่มีข้อมูลคุกกี้ ให้แสดง cookieConsent
-        document.getElementById("cookieConsent").style.display = "block";
-    }
-}
+        // บันทึกการตั้งค่าคุกกี้
+        document.getElementById("saveCookieSettings")?.addEventListener("click", function() {
+            const settings = {
+                essentialCookies: "on",
+                analyticsCookies: document.getElementById("analyticsCookies").checked ? "on" : "off",
+                marketingCookies: document.getElementById("marketingCookies").checked ? "on" : "off"
+            };
+            localStorage.setItem("cookieSettings", JSON.stringify(settings));
+            localStorage.setItem("cookieAccepted", "true");
+            $('#cookieSettingsModal').modal('hide');
+            document.getElementById("cookieConsent").style.display = "none";
+        });
 
-// เรียกฟังก์ชันตรวจสอบเวลาหมดอายุทุกครั้งที่โหลดหน้าเว็บ
-window.addEventListener("load", checkCookieExpiration);
+        // ยอมรับคุกกี้ทั้งหมด
+        document.getElementById("acceptAllCookies")?.addEventListener("click", function() {
+            document.getElementById("analyticsCookies").checked = true;
+            document.getElementById("marketingCookies").checked = true;
+            document.getElementById("saveCookieSettings").click();
+        });
 
-    
-document.addEventListener("DOMContentLoaded", function() {
-    var cookieConsent = document.getElementById("cookieConsent");
-    var cookieSettingsModal = new bootstrap.Modal(document.getElementById("cookieSettingsModal"));
-    var cookieSettingsLink = document.querySelector("[data-bs-target='#cookieSettingsModal']");
-    var modalElement = document.getElementById("cookieSettingsModal");
+        // โหลดข้อมูลจาก Google Sheets
+        $(document).ready(function() {
+            checkCookieConsent();
+            
+            var googleScriptUrl = 'https://script.google.com/macros/s/AKfycbxybt1x6gYBVFrVvULpVG1CWdRkNZwjQIjET523G6I9YyYZn1R7egeKKjAhoZE2gdr6/exec?origin=' + encodeURIComponent(window.location.origin);
+            
+            $('#card-container-day, #card-container-day-disabled, #card-container-month').html('<div class="spinner-container"><div class="custom-spinner"></div></div>');
+            
+            $.ajax({
+                url: googleScriptUrl,
+                dataType: 'json',
+                headers: {
+                    'Referer': window.location.href
+                },
+                success: function(data) {
+                    $('#jobs-loading').hide();
+                    $('#jobs-content').show();
+                    
+                    $('#card-container-day, #card-container-day-disabled, #card-container-month').empty();
+                    
+                    // แสดงจำนวนผู้เยี่ยมชม
+                    $('#visitor-count').text('ผู้เยี่ยมชมทั้งหมด: ' + (data.visitorCount || 0) + ' คน');
+                    
+                    var dailyCount = 0;
+                    var dailyDisabledCount = 0;
+                    var monthlyCount = 0;
+                    var dailyTotalPositions = 0;
+                    var dailyDisabledTotalPositions = 0;
+                    var monthlyTotalPositions = 0;
+                    
+                    var hasDailyJobs = false;
+                    var hasDailyDisabledJobs = false;
+                    var hasMonthlyJobs = false;
+                    
+                    if (data.data && data.data.length > 0) {
+                        hasDailyJobs = data.data.some(row => row['ตำแหน่ง'] === 'รายวัน');
+                        hasDailyDisabledJobs = data.data.some(row => row['ตำแหน่ง'] === 'รายวัน-คนพิการ');
+                        hasMonthlyJobs = data.data.some(row => row['ตำแหน่ง'] === 'รายเดือน');
+                        
+                        if (!hasDailyJobs) {
+                            $('#card-container-day').hide();
+                            $('#card-container-day1').show();
+                        }
+                        if (!hasDailyDisabledJobs) {
+                            $('#card-container-day-disabled').hide();
+                            $('#card-container-day-disabled1').show();
+                        }
+                        if (!hasMonthlyJobs) {
+                            $('#card-container-month').hide();
+                            $('#card-container-month1').show();
+                        }
+                        
+                        $.each(data.data, function(index, row) {
+                            var statusClass = row['สถานะ'] === 'เปิดรับสมัคร ด่วน!!!' ? 'urgent' : 'normal';
+                            var statusText = row['สถานะ'] === 'เปิดรับสมัคร ด่วน!!!' ? 'ด่วน!!!' : 'เปิดรับสมัคร';
+                            
+                            var positions = parseInt(row['จำนวน']) || 0;
+                            var count;
+                            
+                            if (row['ตำแหน่ง'] === 'รายวัน') {
+                                count = ++dailyCount;
+                                dailyTotalPositions += positions;
+                            } else if (row['ตำแหน่ง'] === 'รายวัน-คนพิการ') {
+                                count = ++dailyDisabledCount;
+                                dailyDisabledTotalPositions += positions;
+                            } else if (row['ตำแหน่ง'] === 'รายเดือน') {
+                                count = ++monthlyCount;
+                                monthlyTotalPositions += positions;
+                            }
+                            
+                            var jobType = row['ตำแหน่ง'] === 'รายวัน' ? 'daily' : (row['ตำแหน่ง'] === 'รายเดือน' ? 'monthly' : 'disabled');
+                            
+                            var cardHtml = `
+                                <div class="col-lg-12">
+                                    <div class="job-card">
+                                        <div class="job-header ${jobType}">
+                                            <div class="job-number">${count}</div>
+                                            <h4 class="job-title">${row['ตำแหน่งงาน']}</h4>
+                                        </div>
+                                        <div class="job-body">
+                                            <div class="job-info">
+                                                <div class="job-info-item ${jobType}">
+                                                    <i class="fas fa-user-tag"></i>
+                                                    <span><strong>ประเภท:</strong> ${row['ตำแหน่ง']}</span>
+                                                </div>
+                                                <div class="job-info-item ${jobType}">
+                                                    <i class="fas fa-users"></i>
+                                                    <span><strong>จำนวน:</strong> ${row['จำนวน']} อัตรา</span>
+                                                </div>
+                                                <div class="job-info-item ${jobType}">
+                                                    <i class="fas fa-building"></i>
+                                                    <span><strong>แผนก:</strong> ${row['แผนก']}</span>
+                                                </div>
+                                                <div class="job-info-item ${jobType}">
+                                                    <i class="fas fa-birthday-cake"></i>
+                                                    <span><strong>อายุ:</strong> ${row['อายุ']} ปีขึ้นไป</span>
+                                                </div>
+                                                <div class="job-info-item ${jobType}">
+                                                    <i class="fas fa-ruler-vertical"></i>
+                                                    <span><strong>ส่วนสูง:</strong> ${row['ส่วนสูง']}</span>
+                                                </div>
+                                                <div class="job-info-item ${jobType}">
+                                                    <i class="fas fa-graduation-cap"></i>
+                                                    <span><strong>วุฒิ:</strong> ${row['วุฒิการศึกษา']}</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="job-description">
+                                                <div class="mb-2">
+                                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                                    <strong>คุณสมบัติ:</strong> ${row['คุณสมบัติ']}
+                                                </div>
+                                                <div>
+                                                    <i class="fas fa-info-circle text-info me-2"></i>
+                                                    <strong>ลักษณะงาน:</strong> ${row['อื่นๆ']}
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="job-status ${statusClass}">
+                                                    <i class="fas fa-${row['สถานะ'] === 'เปิดรับสมัคร ด่วน!!!' ? 'exclamation-circle' : 'check-circle'} me-1"></i>
+                                                    ${statusText}
+                                                </span>
+                                            </div>
+                                            
+                                            <div class="job-footer">
+                                                <span>
+                                                    <i class="fas fa-user-edit me-1"></i>
+                                                    ${row['ผู้ลงประกาศ']}
+                                                </span>
+                                                <span>
+                                                    <i class="fas fa-calendar-alt me-1"></i>
+                                                    ${formatDateTime(row['วันที่และเวลาที่ลงประกาศ'])}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            
+                            if (row['ตำแหน่ง'] === 'รายวัน') {
+                                $('#card-container-day').append(cardHtml);
+                            } else if (row['ตำแหน่ง'] === 'รายวัน-คนพิการ') {
+                                $('#card-container-day-disabled').append(cardHtml);
+                            } else if (row['ตำแหน่ง'] === 'รายเดือน') {
+                                $('#card-container-month').append(cardHtml);
+                            }
+                        });
+                        
+                        // อัปเดตตัวเลขใน Stats Cards
+                        $('#daily-count').text(`${dailyCount} ตำแหน่ง (${dailyTotalPositions} อัตรา)`);
+                        $('#daily-disabled-count').text(`${dailyDisabledCount} ตำแหน่ง (${dailyDisabledTotalPositions} อัตรา)`);
+                        $('#monthly-count').text(`${monthlyCount} ตำแหน่ง (${monthlyTotalPositions} อัตรา)`);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching data:', error);
+                    $('#jobs-loading').html('<p class="text-center text-danger">เกิดข้อผิดพลาดในการโหลดข้อมูล</p>');
+                }
+            });
+        });
 
-    // ตรวจสอบว่ามีคุกกี้หรือไม่
-    if (!Cookies.get('cookieConsent')) {
-        cookieConsent.style.display = "block";
-    }
-
-    // เมื่อกด "ยอมรับทั้งหมด"
-    document.getElementById("acceptAllCookies").addEventListener("click", function() {
-        Cookies.set('cookieConsent', 'accepted', { expires: 365 });
-        cookieConsent.style.display = "none";
-    });
-
-    // เมื่อกด "การตั้งค่าคุกกี้"
-    cookieSettingsLink.addEventListener("click", function() {
-        cookieConsent.style.display = "none"; // ซ่อน Cookie Consent
-    });
-
-    // เมื่อปิด Modal ตั้งค่าคุกกี้ ให้แสดง Cookie Consent กลับมา
-    modalElement.addEventListener("hidden.bs.modal", function() {
-        cookieConsent.style.display = "block"; // แสดง Cookie Consent อีกครั้ง
-    });
-});
-   
-    
-document.addEventListener("DOMContentLoaded", function () {
-    var navbarToggler = document.querySelector(".navbar-toggler");
-    var navbarCollapse = document.querySelector("#navbarSupportedContent1");
-
-    navbarToggler.addEventListener("click", function () {
-        var isExpanded = navbarCollapse.classList.contains("show");
-        if (isExpanded) {
-            navbarCollapse.classList.remove("show");
-        } else {
-            navbarCollapse.classList.add("show");
+        // ฟังก์ชันจัดรูปแบบวันที่
+        function formatDateTime(dateTimeString) {
+            if (!dateTimeString) return '';
+            try {
+                let date = new Date(dateTimeString);
+                if (isNaN(date.getTime())) return dateTimeString;
+                
+                let day = String(date.getDate()).padStart(2, '0');
+                let month = String(date.getMonth() + 1).padStart(2, '0');
+                let year = date.getFullYear() + 543;
+                let hours = String(date.getHours()).padStart(2, '0');
+                let minutes = String(date.getMinutes()).padStart(2, '0');
+                
+                return `${day}/${month}/${year} ${hours}:${minutes}`;
+            } catch (e) {
+                return dateTimeString;
+            }
         }
-    });
-});
 
- $(document).ready(function() {
-    var googleScriptUrl = 'https://script.google.com/macros/s/AKfycbxybt1x6gYBVFrVvULpVG1CWdRkNZwjQIjET523G6I9YyYZn1R7egeKKjAhoZE2gdr6/exec?origin=' + encodeURIComponent(window.location.origin);
+        // Smooth scroll สำหรับลิงก์
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
 
-    $('#card-container-day, #card-container-day-disabled, #card-container-month').html('<div class="spinner-container" id="loading-spinner"><div class="spinner-border text-info me-2" role="status"></div> กำลังโหลดข้อมูล...</div>');
-
-    $.ajax({
-        url: googleScriptUrl,
-        dataType: 'json',
-        headers: {
-            'Referer': window.location.href
-        },
-        success: function(data) {
-            document.getElementById('jobs-loading').style.display = 'none';
-            document.getElementById('jobs-content').style.display = 'block';
-        
-            $('#card-container-day, #card-container-day-disabled, #card-container-month').empty();
-
-            // แสดงจำนวนผู้เยี่ยมชม
-            $('#visitor-count').text('View: ' + data.visitorCount);
-
-            var dailyCount = 0;
-            var dailyDisabledCount = 0;
-            var monthlyCount = 0;
-            var dailyTotalPositions = 0;
-            var dailyDisabledTotalPositions = 0;
-            var monthlyTotalPositions = 0;
-            var hasDailyJobs = false; 
-            var hasDailyDisabledJobs = false;
-            var hasMonthlyJobs = false; 
-
-            if (data.data.length === 0) {
-                $('#card-container-day, #card-container-day-disabled, #card-container-month').hide();
-                $('#card-container-day1, #card-container-day-disabled1, #card-container-month1').show();
+        // เปลี่ยนสี Navbar เมื่อ scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar-modern');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
             } else {
-                hasDailyJobs = data.data.some(row => row['ตำแหน่ง'] === 'รายวัน');
-                hasDailyDisabledJobs = data.data.some(row => row['ตำแหน่ง'] === 'รายวัน-คนพิการ');
-                hasMonthlyJobs = data.data.some(row => row['ตำแหน่ง'] === 'รายเดือน');
-
-                if (!hasDailyJobs) {
-                    $('#card-container-day').hide();
-                    $('#card-container-day1').show();
-                }
-
-                if (!hasDailyDisabledJobs) {
-                    $('#card-container-day-disabled').hide();
-                    $('#card-container-day-disabled1').show();
-                }
-
-                if (!hasMonthlyJobs) {
-                    $('#card-container-month').hide();
-                    $('#card-container-month1').show();
-                }
-
-                $.each(data.data, function(index, row) {
-                    var statusColor = row['สถานะ'] === 'เปิดรับสมัคร ด่วน!!!' ? 'style="color: red;"' : (row['สถานะ'] === 'เปิดรับสมัคร' ? 'style="color: black;"' : '');
-
-                    // นับจำนวนตำแหน่งและอัตรา
-                    var positions = parseInt(row['จำนวน']) || 0;
-                    var count, cardType;
-                    
-                    if (row['ตำแหน่ง'] === 'รายวัน') {
-                        count = ++dailyCount;
-                        dailyTotalPositions += positions;
-                        cardType = 'day';
-                    } else if (row['ตำแหน่ง'] === 'รายวัน-คนพิการ') {
-                        count = ++dailyDisabledCount;
-                        dailyDisabledTotalPositions += positions;
-                        cardType = 'day-disabled';
-                    } else if (row['ตำแหน่ง'] === 'รายเดือน') {
-                        count = ++monthlyCount;
-                        monthlyTotalPositions += positions;
-                        cardType = 'month';
-                    }
-
-                    var cardTitle = row['ตำแหน่ง'] === 'รายวัน-คนพิการ' ? 'ตำแหน่งงานที่' : 'ตำแหน่งงานที่';
-                    var bgImageDesktop, bgImageMobile;
-                    
-                    if (row['ตำแหน่ง'] === 'รายวัน') {
-                        bgImageDesktop = 'https://img2.pic.in.th/pic/-25-117a2d93e6dfee74e.png';
-                        bgImageMobile = 'https://img5.pic.in.th/file/secure-sv1/Hrmobile-4-1.png';
-                    } else if (row['ตำแหน่ง'] === 'รายวัน-คนพิการ') {
-                        bgImageDesktop = 'https://img5.pic.in.th/file/secure-sv1/disabled-bg-desktop.png';
-                        bgImageMobile = 'https://img5.pic.in.th/file/secure-sv1/disabled-bg-mobile.png';
-                    } else {
-                        bgImageDesktop = 'https://img5.pic.in.th/file/secure-sv1/-24-17ccd3b83f0eebfab.png';
-                        bgImageMobile = 'https://img2.pic.in.th/pic/Hrmobile-5-1.png';
-                    }
-
-                    var cardHtml = `
-                    <style>
-                        .job-card {
-                            background-size: cover;
-                            background-repeat: no-repeat;
-                            background-position: top center;
-                            border: none;
-                            padding: 10px;
-                            border-radius: 5px !important;
-                        }
-
-                        .job-cardmobile {
-                            background-size: cover;
-                            background-repeat: no-repeat;
-                            background-position: top center;
-                            border: none;
-                            padding: 10px;
-                            border-radius: 5px !important;
-                        }
-
-                        @media (min-width: 769px) {
-                            .job-cardmobile {
-                                display: none;
-                            }
-                        }
-
-                        @media (max-width: 768px) {
-                            .job-card {
-                                display: none;
-                            }
-                        }
-                    </style>
-
-                    <div class="col-sm-12 col-lg-12 pb-lg-6 px-lg-4 pb-4 position-relative">
-                        <!-- สำหรับหน้าจอใหญ่ -->
-                        <div id="card" class="card job-card" style="background-image: url(${bgImageDesktop});">
-                            <div class="card-body">
-                                <h6 class="fw-bold fs-1 heading-color">
-                                    <strong style="color: black;font-size: 15px !important;">
-                                        ${cardTitle} <span style="color: black;font-size: 17px !important;">${count}</span>
-                                    </strong> 
-                                    <span style="color: black;font-size: 15px !important;">${row['ตำแหน่งงาน']}</span>
-                                </h6>
-                                <hr style="color: black;">
-                                <div class="row">
-                                    <div class="col-12 col-md-2">
-                                        <p><strong style="color: black;"><i class="fas fa-user-tag"></i> ตำแหน่ง:</strong> <span style="color: black;">${row['ตำแหน่ง']}</span></p>
-                                    </div>
-                                    <div class="col-12 col-md-2">
-                                        <p style="color: black;"><strong style="color: black;"><i class="fas fa-users"></i> จำนวน:</strong> <span style="color: black;">${row['จำนวน']}</span> อัตรา</p>
-                                    </div>
-                                    <div class="col-12 col-md-2">
-                                        <p><strong style="color: black;"><i class="fas fa-building"></i> แผนก:</strong> <span style="color: black;">${row['แผนก']}</span></p>
-                                    </div>
-                                    <div class="col-12 col-md-2">
-                                        <p style="color: black;"><strong style="color: black;"><i class="fas fa-birthday-cake"></i> อายุ:</strong> <span style="color: black;">${row['อายุ']}</span> ปี ขึ้นไป</p>
-                                    </div>
-                                    <div class="col-12 col-md-2">
-                                        <p><strong style="color: black;"><i class="fas fa-ruler-vertical"></i> ส่วนสูง:</strong> <span style="color: black;">${row['ส่วนสูง']}</span></p>
-                                    </div>
-                                    <div class="col-12 col-md-2">
-                                        <p><strong style="color: black;"><i class="fas fa-graduation-cap"></i> วุฒิการศึกษา:</strong> <span style="color: black;">${row['วุฒิการศึกษา']}</span></p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 col-md-12">
-                                        <p><strong style="color: black;"><i class="fas fa-check-circle"></i> คุณสมบัติ:</strong> <span style="color: black;">${row['คุณสมบัติ']}</span></p>
-                                    </div>
-                                    <div class="col-12 col-md-12">
-                                        <p><strong style="color: black;"><i class="fas fa-info-circle"></i> ลักษณะงาน:</strong> <span style="color: black;">${row['อื่นๆ']}</span></p>
-                                    </div>
-                                    <div class="col-12 col-md-12">
-                                        <p ${statusColor}><strong style="color: black;"><i class="fas fa-clipboard-check"></i> สถานะ:</strong> <span>${row['สถานะ']}</span></p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 col-md-6">
-                                        <p><strong style="color: black;"><i class="fas fa-user-edit"></i> ผู้ลงประกาศ:</strong> <span style="color: black;">${row['ผู้ลงประกาศ']}</span></p>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <p><strong style="color: black;"><i class="fas fa-calendar-alt"></i> วันและเวลาที่ลงประกาศ:</strong> <span style="color: black;">${formatDateTime(row['วันที่และเวลาที่ลงประกาศ'])}</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- สำหรับมือถือ -->
-                        <div id="cardcardmobile" class="card job-cardmobile" style="background-image: url(${bgImageMobile});">
-                            <div class="card-body">
-                                <h6 class="fw-bold fs-1 heading-color">
-                                    <strong style="color: black;font-size: 15px !important;">
-                                        ${cardTitle} <span style="color: black;font-size: 17px !important;">${count}</span>
-                                    </strong> 
-                                    <span style="color: black;font-size: 15px !important;">${row['ตำแหน่งงาน']}</span>
-                                </h6>
-                                <hr style="color: black;">
-                                <div class="row">
-                                    <div class="col-12 col-md-2">
-                                        <p><strong style="color: black;"><i class="fas fa-user-tag"></i> ตำแหน่ง:</strong> <span style="color: black;">${row['ตำแหน่ง']}</span></p>
-                                    </div>
-                                    <div class="col-12 col-md-2">
-                                        <p style="color: black;"><strong style="color: black;"><i class="fas fa-users"></i> จำนวน:</strong> <span style="color: black;">${row['จำนวน']}</span> อัตรา</p>
-                                    </div>
-                                    <div class="col-12 col-md-2">
-                                        <p><strong style="color: black;"><i class="fas fa-building"></i> แผนก:</strong> <span style="color: black;">${row['แผนก']}</span></p>
-                                    </div>
-                                    <div class="col-12 col-md-2">
-                                        <p style="color: black;"><strong style="color: black;"><i class="fas fa-birthday-cake"></i> อายุ:</strong> <span style="color: black;">${row['อายุ']}</span> ปี ขึ้นไป</p>
-                                    </div>
-                                    <div class="col-12 col-md-2">
-                                        <p><strong style="color: black;"><i class="fas fa-ruler-vertical"></i> ส่วนสูง:</strong> <span style="color: black;">${row['ส่วนสูง']}</span></p>
-                                    </div>
-                                    <div class="col-12 col-md-2">
-                                        <p><strong style="color: black;"><i class="fas fa-graduation-cap"></i> วุฒิการศึกษา:</strong> <span style="color: black;">${row['วุฒิการศึกษา']}</span></p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 col-md-12">
-                                        <p><strong style="color: black;"><i class="fas fa-check-circle"></i> คุณสมบัติ:</strong> <span style="color: black;">${row['คุณสมบัติ']}</span></p>
-                                    </div>
-                                    <div class="col-12 col-md-12">
-                                        <p><strong style="color: black;"><i class="fas fa-info-circle"></i> ลักษณะงาน:</strong> <span style="color: black;">${row['อื่นๆ']}</span></p>
-                                    </div>
-                                    <div class="col-12 col-md-12">
-                                        <p ${statusColor}><strong style="color: black;"><i class="fas fa-clipboard-check"></i> สถานะ:</strong> <span>${row['สถานะ']}</span></p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 col-md-6">
-                                        <p><strong style="color: black;"><i class="fas fa-user-edit"></i> ผู้ลงประกาศ:</strong> <span style="color: black;">${row['ผู้ลงประกาศ']}</span></p>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <p><strong style="color: black;"><i class="fas fa-calendar-alt"></i> วันและเวลาที่ลงประกาศ:</strong> <span style="color: black;">${formatDateTime(row['วันที่และเวลาที่ลงประกาศ'])}</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    `;
-
-                    if (row['ตำแหน่ง'] === 'รายวัน') {
-                        $('#card-container-day').append(cardHtml);
-                    } else if (row['ตำแหน่ง'] === 'รายวัน-คนพิการ') {
-                        $('#card-container-day-disabled').append(cardHtml);
-                    } else if (row['ตำแหน่ง'] === 'รายเดือน') {
-                        $('#card-container-month').append(cardHtml);
-                    }
-                });
-
-                // แสดงผลรวมทั้งจำนวนตำแหน่งและจำนวนอัตรา
-                $('#daily-count').text(`  ${dailyCount} ตำแหน่ง ( ${dailyTotalPositions} อัตรา )`);
-                $('#daily-disabled-count').text(`  ${dailyDisabledCount} ตำแหน่ง ( ${dailyDisabledTotalPositions} อัตรา )`);
-                $('#monthly-count').text(`  ${monthlyCount} ตำแหน่ง ( ${monthlyTotalPositions} อัตรา )`);
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
             }
-            localStorage.setItem('visited', true);
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching data:', status, error);
-            $('#card-container-day, #card-container-day-disabled, #card-container-month').html('<p class="text-center" style="color: red;">เกิดข้อผิดพลาดในการโหลดข้อมูล</p>');
-        }
-    });
-
-    function formatDateTime(dateTimeString) {
-        if (!dateTimeString) return '';
-        const options = { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric', 
-            hour: '2-digit', 
-            minute: '2-digit',
-            hour12: false
-        };
-        return new Date(dateTimeString).toLocaleDateString('th-TH', options);
-    }
-});   
-    
- 
-// $(document).ready(function() {
-//     var googleScriptUrl = 'https://script.google.com/macros/s/AKfycbxybt1x6gYBVFrVvULpVG1CWdRkNZwjQIjET523G6I9YyYZn1R7egeKKjAhoZE2gdr6/exec?origin=' + encodeURIComponent(window.location.origin);
-
-  
-//     $('#card-container-day, #card-container-month').html('<div class="spinner-container" id="loading-spinner"><div class="spinner-border text-info me-2" role="status"></div> กำลังโหลดข้อมูล...</div>');
-
-//     $.ajax({
-//         url: googleScriptUrl,
-//         dataType: 'json',
-//         headers: {
-//             'Referer': window.location.href
-//         },
-//         success: function(data) {
-//              document.getElementById('jobs-loading').style.display = 'none';
-//     document.getElementById('jobs-content').style.display = 'block';
-        
-//             $('#card-container-day, #card-container-month').empty();
-         
-
-//               // แสดงจำนวนผู้เยี่ยมชม
-//             $('#visitor-count').text('View: ' + data.visitorCount);
-
-//             // var dailyCount = 0;
-//             // var monthlyCount = 0;
-//             // var hasDailyJobs = false; 
-//             // var hasMonthlyJobs = false; 
-          
-//              var dailyCount = 0;
-//             var monthlyCount = 0;
-//             var dailyTotalPositions = 0;
-//             var monthlyTotalPositions = 0;
-//             var hasDailyJobs = false; 
-//             var hasMonthlyJobs = false; 
-
-//               if (data.data.length === 0) {
-//                 $('#card-container-day').hide();
-//                 $('#card-container-month').hide();
-//                 $('#card-container-day1').show();
-//                 $('#card-container-month1').show();
-//             } else {
-//                 hasDailyJobs = data.data.some(row => row['ตำแหน่ง'] === 'รายวัน');
-//                 hasMonthlyJobs = data.data.some(row => row['ตำแหน่ง'] === 'รายเดือน');
-
-//                 if (!hasDailyJobs) {
-//                     $('#card-container-day').hide();
-//                     $('#card-container-day1').show();
-//                 }
-
-//                 if (!hasMonthlyJobs) {
-//                     $('#card-container-month').hide();
-//                     $('#card-container-month1').show();
-//                 }
-
-//              $.each(data.data, function(index, row) {
-//     var statusColor = row['สถานะ'] === 'เปิดรับสมัคร ด่วน!!!' ? 'style="color: red;"' : (row['สถานะ'] === 'เปิดรับสมัคร' ? 'style="color: black;"' : '');
-
-//     // นับค่า dailyCount และ monthlyCount ก่อนสร้าง cardHtml
-//     var count = row['ตำแหน่ง'] === 'รายวัน' ? ++dailyCount : ++monthlyCount;
-               
-//                    // นับจำนวนอัตรารวม
-//                     var positions = parseInt(row['จำนวน']) || 0;
-//                     if (row['ตำแหน่ง'] === 'รายวัน') {
-//                         dailyTotalPositions += positions;
-//                     } else {
-//                         monthlyTotalPositions += positions;
-//                     }
-
-//     var cardHtml = `
-//     <style>
-//         .job-card {
-//             background-size: cover;
-//             background-repeat: no-repeat;
-//             background-position: top center;
-//             border: none;
-//             padding: 10px;
-//             border-radius: 5px !important;
-//         }
-
-//         .job-cardmobile {
-//             background-size: cover;
-//             background-repeat: no-repeat;
-//             background-position: top center;
-//             border: none;
-//             padding: 10px;
-//             border-radius: 5px !important;
-//         }
-
-//         /* ซ่อน cardcardmobile เมื่ออยู่บนหน้าจอใหญ่ */
-//         @media (min-width: 769px) {
-//             .job-cardmobile {
-//                 display: none;
-//             }
-//         }
-
-//         /* ซ่อน card เมื่ออยู่บนมือถือ */
-//         @media (max-width: 768px) {
-//             .job-card {
-//                 display: none;
-//             }
-//         }
-//     </style>
-
-//     <div class="col-sm-12 col-lg-12 pb-lg-6 px-lg-4 pb-4 position-relative">
-//        <!-- สำหรับหน้าจอใหญ่ -->
-//         <div id="card" class="card job-card" style="background-image: url(${row['ตำแหน่ง'] === 'รายวัน' ? 'https://img2.pic.in.th/pic/-25-117a2d93e6dfee74e.png' : 'https://img5.pic.in.th/file/secure-sv1/-24-17ccd3b83f0eebfab.png'});">
-//             <div class="card-body">
-//                 <!-- เนื้อหาของ card -->
-//                 <h6 class="fw-bold fs-1 heading-color">
-//                     <strong style="color: black;font-size: 15px !important;">
-//                         ตำแหน่งงานที่ <span style="color: black;font-size: 17px !important;">${count}</span>
-//                     </strong> 
-//                     <span style="color: black;font-size: 15px !important;">${row['ตำแหน่งงาน']}</span>
-//                 </h6>
-//                 <hr style="color: black;">
-//                 <div class="row">
-//                     <div class="col-12 col-md-2">
-//                         <p><strong style="color: black;"><i class="fas fa-user-tag"></i> ตำแหน่ง:</strong> <span style="color: black;">${row['ตำแหน่ง']}</span></p>
-//                     </div>
-//                     <div class="col-12 col-md-2">
-//                         <p style="color: black;"><strong style="color: black;"><i class="fas fa-users"></i> จำนวน:</strong> <span style="color: black;">${row['จำนวน']}</span> อัตรา</p>
-//                     </div>
-//                     <div class="col-12 col-md-2">
-//                         <p><strong style="color: black;"><i class="fas fa-building"></i> แผนก:</strong> <span style="color: black;">${row['แผนก']}</span></p>
-//                     </div>
-//                     <div class="col-12 col-md-2">
-//                         <p style="color: black;"><strong style="color: black;"><i class="fas fa-birthday-cake"></i> อายุ:</strong> <span style="color: black;">${row['อายุ']}</span> ปี ขึ้นไป</p>
-//                     </div>
-//                     <div class="col-12 col-md-2">
-//                         <p><strong style="color: black;"><i class="fas fa-ruler-vertical"></i> ส่วนสูง:</strong> <span style="color: black;">${row['ส่วนสูง']}</span></p>
-//                     </div>
-//                     <div class="col-12 col-md-2">
-//                         <p><strong style="color: black;"><i class="fas fa-graduation-cap"></i> วุฒิการศึกษา:</strong> <span style="color: black;">${row['วุฒิการศึกษา']}</span></p>
-//                     </div>
-//                 </div>
-//                 <div class="row">
-//                     <div class="col-12 col-md-12">
-//                         <p><strong style="color: black;"><i class="fas fa-check-circle"></i> คุณสมบัติ:</strong> <span style="color: black;">${row['คุณสมบัติ']}</span></p>
-//                     </div>
-//                     <div class="col-12 col-md-12">
-//                         <p><strong style="color: black;"><i class="fas fa-info-circle"></i> ลักษณะงาน:</strong> <span style="color: black;">${row['อื่นๆ']}</span></p>
-//                     </div>
-//                     <div class="col-12 col-md-12">
-//                         <p ${statusColor}><strong style="color: black;"><i class="fas fa-clipboard-check"></i> สถานะ:</strong> <span>${row['สถานะ']}</span></p>
-//                     </div>
-//                 </div>
-//                 <div class="row">
-//                     <div class="col-12 col-md-6">
-//                         <p><strong style="color: black;"><i class="fas fa-user-edit"></i> ผู้ลงประกาศ:</strong> <span style="color: black;">${row['ผู้ลงประกาศ']}</span></p>
-//                     </div>
-//                     <div class="col-12 col-md-6">
-//                         <p><strong style="color: black;"><i class="fas fa-calendar-alt"></i> วันและเวลาที่ลงประกาศ:</strong> <span style="color: black;">${formatDateTime(row['วันที่และเวลาที่ลงประกาศ'])}</span></p>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-
-//        <!-- สำหรับมือถือ -->
-//         <div id="cardcardmobile" class="card job-cardmobile" style="background-image: url(${row['ตำแหน่ง'] === 'รายวัน' ? 'https://img5.pic.in.th/file/secure-sv1/Hrmobile-4-1.png' : 'https://img2.pic.in.th/pic/Hrmobile-5-1.png'});">
-//             <div class="card-body">
-//                 <!-- เนื้อหาของ cardcardmobile -->
-//                 <h6 class="fw-bold fs-1 heading-color">
-//                     <strong style="color: black;font-size: 15px !important;">
-//                         ตำแหน่งงานที่ <span style="color: black;font-size: 17px !important;">${count}</span>
-//                     </strong> 
-//                     <span style="color: black;font-size: 15px !important;">${row['ตำแหน่งงาน']}</span>
-//                 </h6>
-//                 <hr style="color: black;">
-//                 <div class="row">
-//                     <div class="col-12 col-md-2">
-//                         <p><strong style="color: black;"><i class="fas fa-user-tag"></i> ตำแหน่ง:</strong> <span style="color: black;">${row['ตำแหน่ง']}</span></p>
-//                     </div>
-//                     <div class="col-12 col-md-2">
-//                         <p style="color: black;"><strong style="color: black;"><i class="fas fa-users"></i> จำนวน:</strong> <span style="color: black;">${row['จำนวน']}</span> อัตรา</p>
-//                     </div>
-//                     <div class="col-12 col-md-2">
-//                         <p><strong style="color: black;"><i class="fas fa-building"></i> แผนก:</strong> <span style="color: black;">${row['แผนก']}</span></p>
-//                     </div>
-//                     <div class="col-12 col-md-2">
-//                         <p style="color: black;"><strong style="color: black;"><i class="fas fa-birthday-cake"></i> อายุ:</strong> <span style="color: black;">${row['อายุ']}</span> ปี ขึ้นไป</p>
-//                     </div>
-//                     <div class="col-12 col-md-2">
-//                         <p><strong style="color: black;"><i class="fas fa-ruler-vertical"></i> ส่วนสูง:</strong> <span style="color: black;">${row['ส่วนสูง']}</span></p>
-//                     </div>
-//                     <div class="col-12 col-md-2">
-//                         <p><strong style="color: black;"><i class="fas fa-graduation-cap"></i> วุฒิการศึกษา:</strong> <span style="color: black;">${row['วุฒิการศึกษา']}</span></p>
-//                     </div>
-//                 </div>
-//                 <div class="row">
-//                     <div class="col-12 col-md-12">
-//                         <p><strong style="color: black;"><i class="fas fa-check-circle"></i> คุณสมบัติ:</strong> <span style="color: black;">${row['คุณสมบัติ']}</span></p>
-//                     </div>
-//                     <div class="col-12 col-md-12">
-//                         <p><strong style="color: black;"><i class="fas fa-info-circle"></i> ลักษณะงาน:</strong> <span style="color: black;">${row['อื่นๆ']}</span></p>
-//                     </div>
-//                     <div class="col-12 col-md-12">
-//                         <p ${statusColor}><strong style="color: black;"><i class="fas fa-clipboard-check"></i> สถานะ:</strong> <span>${row['สถานะ']}</span></p>
-//                     </div>
-//                 </div>
-//                 <div class="row">
-//                     <div class="col-12 col-md-6">
-//                         <p><strong style="color: black;"><i class="fas fa-user-edit"></i> ผู้ลงประกาศ:</strong> <span style="color: black;">${row['ผู้ลงประกาศ']}</span></p>
-//                     </div>
-//                     <div class="col-12 col-md-6">
-//                         <p><strong style="color: black;"><i class="fas fa-calendar-alt"></i> วันและเวลาที่ลงประกาศ:</strong> <span style="color: black;">${formatDateTime(row['วันที่และเวลาที่ลงประกาศ'])}</span></p>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     </div>
-// `;
-
-//                     if (row['ตำแหน่ง'] === 'รายวัน') {
-//                         $('#card-container-day').append(cardHtml);
-//                     } else if (row['ตำแหน่ง'] === 'รายเดือน') {
-//                         $('#card-container-month').append(cardHtml);
-//                     }
-//                 });
-
-//                 // $('#daily-count').text(` : ${dailyCount} ตำแหน่ง`);
-//                 // $('#monthly-count').text(` : ${monthlyCount} ตำแหน่ง`);
-              
-//                 // แสดงผลรวมทั้งจำนวนตำแหน่งและจำนวนอัตรา
-//                 $('#daily-count').text(`  ${dailyCount} ตำแหน่ง ( ${dailyTotalPositions} อัตรา )`);
-//                 $('#monthly-count').text(`  ${monthlyCount} ตำแหน่ง ( ${monthlyTotalPositions} อัตรา )`);
-               
-              
-//             }
-//             localStorage.setItem('visited', true);
-//         },
-//         error: function(xhr, status, error) {
-//             console.error('Error fetching data:', status, error);
-//             $('#card-container-day').html('<p class="text-center" style="color: red;">เกิดข้อผิดพลาดในการโหลดข้อมูล</p>');
-//             $('#card-container-month').html('<p class="text-center" style="color: red;">เกิดข้อผิดพลาดในการโหลดข้อมูล</p>');
-//         }
-//     });
-// });
-
- 
-
-function formatDateTime(dateTimeString) {
-    let date = new Date(dateTimeString);
-    if (isNaN(date.getTime())) {
-        return dateTimeString; // ถ้าไม่ใช่วันที่ ให้คืนค่าเดิม
-    }
-    let day = String(date.getDate()).padStart(2, '0');
-    let month = String(date.getMonth() + 1).padStart(2, '0'); // เดือนเริ่มจาก 0
-    let year = date.getFullYear() + 543; // แปลงเป็นปี พ.ศ.
-    let hours = String(date.getHours()).padStart(2, '0');
-    let minutes = String(date.getMinutes()).padStart(2, '0');
-    return `${day}-${month}-${year} ${hours}:${minutes}`;
-}
-
-    
-
-    
-  </script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <!-- ===============================================-->
-    <!--    JavaScripts-->
-    <!-- ===============================================-->
-    <script src="https://themewagon.github.io/jobest/v1.0.0/vendors/@popperjs/popper.min.js"></script>
-    <script src="https://themewagon.github.io/jobest/v1.0.0/vendors/bootstrap/bootstrap.min.js"></script>
-    <script src="https://themewagon.github.io/jobest/v1.0.0/vendors/is/is.min.js"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-    <script src="https://themewagon.github.io/jobest/v1.0.0/assets/js/theme.js"></script>
-<!--     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400&amp;display=swap" rel="stylesheet"> -->
-  </body>
-
+        });
+    </script>
+</body>
 </html>
