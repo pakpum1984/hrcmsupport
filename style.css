@@ -539,3 +539,73 @@
         padding: 5px 12px;
     }
 }
+
+
+   /* Animation สำหรับสถานะด่วน */
+@keyframes blink {
+    0% { 
+        background: #fed7d7;
+        color: #c53030;
+        opacity: 1;
+    }
+    30% { 
+        background: #c53030;
+        color: white;
+        opacity: 0.9;
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(197, 48, 48, 0.5);
+    }
+    70% { 
+        background: #c53030;
+        color: white;
+        opacity: 0.9;
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(197, 48, 48, 0.5);
+    }
+    100% { 
+        background: #fed7d7;
+        color: #c53030;
+        opacity: 1;
+    }
+}
+
+.job-status.urgent {
+    animation: blink 3s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+    font-weight: 600;
+    border: 1px solid #c53030;
+}
+
+.job-status.urgent i {
+    animation: pulse 3s ease-in-out infinite;
+}
+.job-status.urgent:hover {
+    animation: none;
+    background: #c53030 !important;
+    color: white !important;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* สถานะปกติ */
+.job-status.normal {
+    background: #c6f6d5;
+    color: #22543d;
+    border: 1px solid #22543d;
+}
+
+.job-status.normal:hover {
+    background: #22543d !important;
+    color: white !important;
+    transition: all 0.3s ease;
+}
