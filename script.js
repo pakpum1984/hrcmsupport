@@ -289,3 +289,164 @@ function sortJobs(jobs) {
             navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
         }
     });
+
+// เพิ่มฟังก์ชันจัดการนับผู้เยี่ยมชม
+function updateVisitorCount() {
+    const visitorRef = database.ref('visitorCount');
+    
+    // ใช้ transaction เพื่อป้องกันการนับซ้ำ
+    visitorRef.transaction(currentCount => {
+        return (currentCount || 0) + 1;
+    }, (error, committed, snapshot) => {
+        if (error) {
+            console.error('Transaction failed:', error);
+        } else if (committed) {
+            const newCount = snapshot.val();
+            $('#visitor-count').text('ผู้เยี่ยมชมทั้งหมด: ' + newCount.toLocaleString() + ' คน');
+            
+            // บันทึก session เพื่อไม่ให้นับซ้ำใน session เดียวกัน
+            sessionStorage.setItem('visitorCounted', 'true');
+        }
+    });
+}
+
+// ฟังก์ชันดึงจำนวนผู้เยี่ยมชมปัจจุบัน
+function getCurrentVisitorCount() {
+    const visitorRef = database.ref('visitorCount');
+    visitorRef.on('value', snapshot => {
+        const count = snapshot.val() || 0;
+        $('#visitor-count').text('ผู้เยี่ยมชมทั้งหมด: ' + count.toLocaleString() + ' คน');
+    });
+}
+
+// แก้ไขใน $(document).ready
+$(document).ready(function() {
+    checkCookieConsent();
+    
+    // ตรวจสอบว่านับผู้เยี่ยมชมใน session นี้หรือยัง
+    if (!sessionStorage.getItem('visitorCounted')) {
+        updateVisitorCount();
+    } else {
+        getCurrentVisitorCount();
+    }
+    
+    $('#card-container-day, #card-container-day-disabled, #card-container-month').html('<div class="spinner-container"><div class="custom-spinner"></div></div>');
+    
+    // ดึงข้อมูลจาก Firebase
+    database.ref('jobs').once('value', snapshot => {
+        $('#jobs-loading').hide();
+        $('#jobs-content').show();
+        
+        $('#card-container-day, #card-container-day-disabled, #card-container-month').empty();
+        
+        const jobs = [];
+        snapshot.forEach(childSnapshot => {
+            jobs.push({
+                id: childSnapshot.key,
+                ...childSnapshot.val()
+            });
+        });
+        
+        // กรองเฉพาะ jobs ที่เปิดรับสมัคร (ไม่แสดง jobs ที่ปิดรับสมัคร)
+        const openJobs = jobs.filter(job => job.สถานะ !== 'ปิดรับสมัคร');
+        
+        // แยก jobs ตามประเภท
+        const dailyJobs = openJobs.filter(job => job.ตำแหน่ง === 'รายวัน');
+        const monthlyJobs = openJobs.filter(job => job.ตำแหน่ง === 'รายเดือน');
+        const disabledJobs = openJobs.filter(job => job.ตำแหน่ง === 'รายวัน-คนพิการ');
+        
+        // อัปเดตตัวเลขใน Stats Cards
+        const dailyTotalPositions = dailyJobs.reduce((sum, job) => sum + (parseInt(job.จำนวน) || 0), 0);
+        const monthlyTotalPositions = monthlyJobs.reduce((sum, job) => sum + (parseInt(job.จำนวน) || 0), 0);
+        const disabledTotalPositions = disabledJobs.reduce((sum, job) => sum + (parseInt(job.จำนวน) || 0), 0);
+        
+        $('#daily-count').text(`${dailyJobs.length} ตำแหน่ง (${dailyTotalPositions} อัตรา)`);
+        $('#monthly-count').text(`${monthlyJobs.length} ตำแหน่ง (${monthlyTotalPositions} อัตรา)`);
+        $('#daily-disabled-count').text(`${disabledJobs.length} ตำแหน่ง (${disabledTotalPositions} อัตรา)`);
+        
+        // เรียงลำดับ jobs ตามเงื่อนไข
+        const sortedDailyJobs = sortJobs([...dailyJobs]);
+        const sortedMonthlyJobs = sortJobs([...monthlyJobs]);
+        const sortedDisabledJobs = sortJobs([...disabledJobs]);
+        
+        // แสดง Daily Jobs
+        if (sortedDailyJobs.length > 0) {
+            $('#card-container-day1').hide();
+            sortedDailyJobs.forEach((job, index) => {
+                $('#card-container-day').append(createJobCard(job, index + 1, 'daily'));
+            });
+        } else {
+            $('#card-container-day').hide();
+            $('#card-container-day1').show();
+        }
+        
+        // แสดง Monthly Jobs
+        if (sortedMonthlyJobs.length > 0) {
+            $('#card-container-month1').hide();
+            sortedMonthlyJobs.forEach((job, index) => {
+                $('#card-container-month').append(createJobCard(job, index + 1, 'monthly'));
+            });
+        } else {
+            $('#card-container-month').hide();
+            $('#card-container-month1').show();
+        }
+        
+        // แสดง Disabled Jobs
+        if (sortedDisabledJobs.length > 0) {
+            $('#card-container-day-disabled1').hide();
+            sortedDisabledJobs.forEach((job, index) => {
+                $('#card-container-day-disabled').append(createJobCard(job, index + 1, 'disabled'));
+            });
+        } else {
+            $('#card-container-day-disabled').hide();
+            $('#card-container-day-disabled1').show();
+        }
+    }).catch(error => {
+        console.error('Error loading data from Firebase:', error);
+        $('#jobs-loading').html('<p class="text-center text-danger">เกิดข้อผิดพลาดในการโหลดข้อมูล</p>');
+    });
+});
+
+// ฟังก์ชันแสดงสถิติแบบละเอียด
+function displayDetailedVisitorStats() {
+    const visitorRef = database.ref('visitorStats');
+    const today = new Date().toISOString().split('T')[0];
+    const month = today.substring(0, 7);
+    const year = today.substring(0, 4);
+    
+    // แสดงจำนวนรวม
+    visitorRef.child('total').on('value', snapshot => {
+        const total = snapshot.val() || 0;
+        $('#visitor-count').html(`
+            <i class="fas fa-users me-2"></i>
+            ผู้เยี่ยมชมทั้งหมด: ${total.toLocaleString()} คน
+        `);
+    });
+    
+    // แสดงจำนวนวันนี้
+    visitorRef.child('daily').child(today).on('value', snapshot => {
+        const todayCount = snapshot.val() || 0;
+        $('#visitor-today').html(`
+            <i class="fas fa-calendar-day me-1"></i>
+            วันนี้: ${todayCount.toLocaleString()} คน
+        `);
+    });
+    
+    // แสดงจำนวนเดือนนี้
+    visitorRef.child('monthly').child(month).on('value', snapshot => {
+        const monthCount = snapshot.val() || 0;
+        $('#visitor-month').html(`
+            <i class="fas fa-calendar-alt me-1"></i>
+            เดือนนี้: ${monthCount.toLocaleString()} คน
+        `);
+    });
+    
+    // แสดงจำนวนปีนี้
+    visitorRef.child('yearly').child(year).on('value', snapshot => {
+        const yearCount = snapshot.val() || 0;
+        $('#visitor-year').html(`
+            <i class="fas fa-calendar me-1"></i>
+            ปีนี้: ${yearCount.toLocaleString()} คน
+        `);
+    });
+}
