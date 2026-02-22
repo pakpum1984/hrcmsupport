@@ -1,3 +1,4 @@
+
 // Firebase Configuration
 const firebaseConfig = {
     apiKey: "AIzaSyD4VAhT9Bp7-_P0s4UOQlJMEK1bxn2770w",
@@ -174,116 +175,107 @@ function createJobCard(job, index, type) {
     `;
 }
 
-// ========== ระบบนับผู้เยี่ยมชมแบบที่ 1: visitorCount (แบบง่าย) ==========
+// ฟังก์ชันจัดการนับผู้เยี่ยมชม (แก้ไขแล้ว)
 function updateVisitorCount() {
     const visitorRef = database.ref('visitorCount');
     
+    // ใช้ transaction เพื่อป้องกันการนับซ้ำ
     visitorRef.transaction(currentCount => {
+        // ถ้าไม่มีค่าให้เริ่มที่ 0 แล้วค่อย +1
         return (currentCount || 0) + 1;
     }, (error, committed, snapshot) => {
         if (error) {
             console.error('Transaction failed:', error);
+            // ถ้า transaction ล้มเหลว ให้ใช้ localStorage แทน
             let localCount = localStorage.getItem('visitorCount') || 0;
             localCount = parseInt(localCount) + 1;
             localStorage.setItem('visitorCount', localCount);
+            $('#visitor-count').text('ผู้เยี่ยมชมทั้งหมด: ' + localCount.toLocaleString() + ' คน');
+        } else if (committed) {
+            const newCount = snapshot.val();
+            $('#visitor-count').text('ผู้เยี่ยมชมทั้งหมด: ' + newCount.toLocaleString() + ' คน');
+            
+            // บันทึก session เพื่อไม่ให้นับซ้ำใน session เดียวกัน
+            sessionStorage.setItem('visitorCounted', 'true');
         }
     });
 }
 
+// ฟังก์ชันดึงจำนวนผู้เยี่ยมชมปัจจุบัน (แก้ไขแล้ว)
 function getCurrentVisitorCount() {
     const visitorRef = database.ref('visitorCount');
     
+    // ใช้ once แทน on เพื่อป้องกันการดึงข้อมูลซ้ำ
     visitorRef.once('value', snapshot => {
         const count = snapshot.val() || 0;
         $('#visitor-count').text('ผู้เยี่ยมชมทั้งหมด: ' + count.toLocaleString() + ' คน');
     }).catch(error => {
         console.error('Error getting visitor count:', error);
+        // ถ้า error ให้ใช้ localStorage
         let localCount = localStorage.getItem('visitorCount') || 0;
         $('#visitor-count').text('ผู้เยี่ยมชมทั้งหมด: ' + localCount.toLocaleString() + ' คน');
     });
 }
 
-// ========== ระบบนับผู้เยี่ยมชมแบบที่ 2: visitorStats (แบบละเอียด) ==========
-function updateDetailedVisitorCount() {
-    const visitorRef = database.ref('visitorStats');
-    const today = new Date().toISOString().split('T')[0];
-    const month = today.substring(0, 7);
-    const year = today.substring(0, 4);
-    
-    // อัพเดท total
-    visitorRef.child('total').transaction(current => (current || 0) + 1);
-    
-    // อัพเดท daily
-    visitorRef.child('daily').child(today).transaction(current => (current || 0) + 1);
-    
-    // อัพเดท monthly
-    visitorRef.child('monthly').child(month).transaction(current => (current || 0) + 1);
-    
-    // อัพเดท yearly
-    visitorRef.child('yearly').child(year).transaction(current => (current || 0) + 1);
-}
-
+// ฟังก์ชันแสดงสถิติแบบละเอียด (แก้ไขแล้ว)
 function displayDetailedVisitorStats() {
     const visitorRef = database.ref('visitorStats');
     const today = new Date().toISOString().split('T')[0];
     const month = today.substring(0, 7);
     const year = today.substring(0, 4);
     
-    // แสดงจำนวนรวม
-    visitorRef.child('total').once('value', snapshot => {
-        const total = snapshot.val() || 0;
-        $('#visitor-count').html(`
-            <i class="fas fa-users me-2"></i>
-            ผู้เยี่ยมชมทั้งหมด: ${total.toLocaleString()} คน
-        `);
-    }).catch(error => {
-        console.error('Error getting total count:', error);
-    });
+    // ตรวจสอบว่ามี element เหล่านี้หรือไม่
+    if ($('#visitor-count').length) {
+        // แสดงจำนวนรวม
+        visitorRef.child('total').once('value', snapshot => {
+            const total = snapshot.val() || 0;
+            $('#visitor-count').html(`
+                <i class="fas fa-users me-2"></i>
+                ผู้เยี่ยมชมทั้งหมด: ${total.toLocaleString()} คน
+            `);
+        }).catch(error => {
+            console.error('Error getting total count:', error);
+        });
+    }
     
-    // แสดงจำนวนวันนี้
-    visitorRef.child('daily').child(today).once('value', snapshot => {
-        const todayCount = snapshot.val() || 0;
-        $('#visitor-today').html(`
-            <i class="fas fa-calendar-day me-1"></i>
-            วันนี้: ${todayCount.toLocaleString()} คน
-        `);
-    }).catch(error => {
-        console.error('Error getting today count:', error);
-        $('#visitor-today').html(`
-            <i class="fas fa-calendar-day me-1"></i>
-            วันนี้: 0 คน
-        `);
-    });
+    if ($('#visitor-today').length) {
+        // แสดงจำนวนวันนี้
+        visitorRef.child('daily').child(today).once('value', snapshot => {
+            const todayCount = snapshot.val() || 0;
+            $('#visitor-today').html(`
+                <i class="fas fa-calendar-day me-1"></i>
+                วันนี้: ${todayCount.toLocaleString()} คน
+            `);
+        }).catch(error => {
+            console.error('Error getting today count:', error);
+        });
+    }
     
-    // แสดงจำนวนเดือนนี้
-    visitorRef.child('monthly').child(month).once('value', snapshot => {
-        const monthCount = snapshot.val() || 0;
-        $('#visitor-month').html(`
-            <i class="fas fa-calendar-alt me-1"></i>
-            เดือนนี้: ${monthCount.toLocaleString()} คน
-        `);
-    }).catch(error => {
-        console.error('Error getting month count:', error);
-        $('#visitor-month').html(`
-            <i class="fas fa-calendar-alt me-1"></i>
-            เดือนนี้: 0 คน
-        `);
-    });
+    if ($('#visitor-month').length) {
+        // แสดงจำนวนเดือนนี้
+        visitorRef.child('monthly').child(month).once('value', snapshot => {
+            const monthCount = snapshot.val() || 0;
+            $('#visitor-month').html(`
+                <i class="fas fa-calendar-alt me-1"></i>
+                เดือนนี้: ${monthCount.toLocaleString()} คน
+            `);
+        }).catch(error => {
+            console.error('Error getting month count:', error);
+        });
+    }
     
-    // แสดงจำนวนปีนี้
-    visitorRef.child('yearly').child(year).once('value', snapshot => {
-        const yearCount = snapshot.val() || 0;
-        $('#visitor-year').html(`
-            <i class="fas fa-calendar me-1"></i>
-            ปีนี้: ${yearCount.toLocaleString()} คน
-        `);
-    }).catch(error => {
-        console.error('Error getting year count:', error);
-        $('#visitor-year').html(`
-            <i class="fas fa-calendar me-1"></i>
-            ปีนี้: 0 คน
-        `);
-    });
+    if ($('#visitor-year').length) {
+        // แสดงจำนวนปีนี้
+        visitorRef.child('yearly').child(year).once('value', snapshot => {
+            const yearCount = snapshot.val() || 0;
+            $('#visitor-year').html(`
+                <i class="fas fa-calendar me-1"></i>
+                ปีนี้: ${yearCount.toLocaleString()} คน
+            `);
+        }).catch(error => {
+            console.error('Error getting year count:', error);
+        });
+    }
 }
 
 // Smooth scroll สำหรับลิงก์
@@ -320,19 +312,14 @@ $(document).ready(function() {
     if (!sessionStorage.getItem('visitorCounted')) {
         // รอให้ Firebase พร้อมทำงาน
         setTimeout(() => {
-            // อัพเดททั้งสองระบบ
-            updateVisitorCount();        // อัพเดท visitorCount
-            updateDetailedVisitorCount(); // อัพเดท visitorStats
+            updateVisitorCount();
         }, 500);
-        
-        // บันทึก session
-        sessionStorage.setItem('visitorCounted', 'true');
+    } else {
+        // รอให้ Firebase พร้อมทำงาน
+        setTimeout(() => {
+            getCurrentVisitorCount();
+        }, 500);
     }
-    
-    // แสดงสถิติแบบละเอียด (ใช้ได้ทั้งก่อนและหลังนับ)
-    setTimeout(() => {
-        displayDetailedVisitorStats();
-    }, 500);
     
     $('#card-container-day, #card-container-day-disabled, #card-container-month').html('<div class="spinner-container"><div class="custom-spinner"></div></div>');
     
