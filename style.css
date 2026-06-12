@@ -1,4 +1,7 @@
-
+html {
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+}
 
 * {
             font-family: 'Prompt', sans-serif;
